@@ -1,0 +1,50 @@
+# Credentials and private keys
+*.pem
+*.key
+*.pfx
+*.p12
+*.ppk
+*.kdbx
+.env
+.env.*
+secrets/
+credentials/
+
+# Raw or sensitive telemetry
+*.evtx
+*.etl
+*.pcap
+*.pcapng
+*.dmp
+*.dump
+raw-logs/
+working-evidence/
+
+# Virtual machines and installation media
+*.vdi
+*.vhd
+*.vhdx
+*.vmdk
+*.ova
+*.ovf
+*.iso
+*.sav
+Snapshots/
+
+# Local configuration and generated output
+*.local
+*.tmp
+*.temp
+*.bak
+*.old
+*.log
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editors and tooling
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+node_modules/

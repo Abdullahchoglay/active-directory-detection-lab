@@ -23,6 +23,8 @@
 
 ## Phase 2 — Domain controller
 
+- [x] Create the powered-off `AD-DC01` VM with EFI, TPM 2.0, 3 GB RAM, 2 vCPU and a 64 GB dynamic disk.
+- [x] Attach the primary adapter to `AD-LAB` and a temporary secondary adapter to outbound NAT.
 - Install a supported Windows Server evaluation from an official source.
 - Apply updates before isolation where necessary.
 - Configure static addressing, DNS, AD DS and a test forest.

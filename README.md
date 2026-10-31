@@ -83,20 +83,21 @@ The Wazuh VM migration to the destination laptop was validated on 1 November 202
 
 The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 6 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Guest package consistency and filesystem expansion remain pending authenticated guest validation. See [migration validation](evidence/MIG-001-migration-validation.md).
 
-No Windows Server or Windows client VM has been built yet, and no Active Directory telemetry or detection result is claimed.
+An empty, powered-off `AD-DC01` VirtualBox machine now provides the planned Windows Server 2025 hardware envelope: 3 GB RAM, 2 vCPU, a 64 GB dynamic disk, EFI, TPM 2.0, an `AD-LAB` internal adapter, and a temporary outbound-only NAT adapter. No operating system is installed, and no Active Directory telemetry or detection result is claimed.
 
 ## Roadmap
 
 1. [x] Verify destination resources and virtualization support.
 2. [x] Preserve, clone and validate the migrated Wazuh VM.
 3. [x] Create the VirtualBox `AD-LAB` internal network attachment on Wazuh.
-4. [ ] Acquire supported Windows evaluation media from Microsoft.
-5. [ ] Build and harden the domain controller.
-6. [ ] Add a separate Windows domain client if the resource test passes.
-7. [ ] Configure auditing, Wazuh and selected Sysmon telemetry.
-8. [ ] Baseline normal domain activity and execute harmless marked scenarios.
-9. [ ] Develop detections and produce investigation reports.
-10. [ ] Complete secret, evidence, syntax and publication review.
+4. [x] Prepare the powered-off domain-controller VM hardware and isolated adapters.
+5. [ ] Acquire supported Windows evaluation media from Microsoft.
+6. [ ] Install and harden the domain controller.
+7. [ ] Add a separate Windows domain client if the resource test passes.
+8. [ ] Configure auditing, Wazuh and selected Sysmon telemetry.
+9. [ ] Baseline normal domain activity and execute harmless marked scenarios.
+10. [ ] Develop detections and produce investigation reports.
+11. [ ] Complete secret, evidence, syntax and publication review.
 
 ## Repository structure
 

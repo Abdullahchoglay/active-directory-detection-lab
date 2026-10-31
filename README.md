@@ -81,7 +81,7 @@ See [scope and safety](docs/scope-and-safety.md) for the full working boundary.
 
 The Wazuh VM migration to the destination laptop was validated on 1 November 2026. The powered-off transferred disk received a SHA-256 baseline, a separate permanent clone was created, and the original transfer copy was retained as recovery media. The clone booted successfully; Wazuh agent and enrollment listeners were reachable, the dashboard redirected to its login page, and the API returned the expected unauthenticated `401` response.
 
-The permanent clone uses a 64 GB dynamic disk, 6 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Exact Wazuh package versions and guest filesystem expansion remain pending authenticated guest validation. See [migration validation](evidence/MIG-001-migration-validation.md).
+The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 6 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Guest package consistency and filesystem expansion remain pending authenticated guest validation. See [migration validation](evidence/MIG-001-migration-validation.md).
 
 No Windows Server or Windows client VM has been built yet, and no Active Directory telemetry or detection result is claimed.
 

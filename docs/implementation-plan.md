@@ -8,7 +8,8 @@
 - [x] Create and register a separate permanent clone.
 - [x] Validate dashboard, API, SSH, agent and enrollment reachability.
 - [x] Retain the original transferred copy powered off.
-- [ ] Verify exact guest package versions and filesystem expansion after authenticated guest access.
+- [x] Verify the dashboard-advertised Wazuh version (`4.14.7`).
+- [ ] Verify guest package consistency and filesystem expansion after authenticated guest access.
 - [ ] Verify end-to-end Windows event ingestion after the first lab agent is enrolled.
 
 ## Phase 1 — Network design — in progress

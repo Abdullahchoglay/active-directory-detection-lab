@@ -39,6 +39,7 @@ The clone booted and obtained its private NAT address. The following checks pass
 | SSH listener | TCP 2222 reachable |
 | Dashboard | HTTP 302 redirect to `/app/login` |
 | Wazuh API | HTTP 401 with `No authorization token provided` |
+| Dashboard metadata | Wazuh `4.14.7`, OpenSearch Dashboards `2.19.5` |
 
 The dashboard initially returned `503 Wazuh dashboard server is not ready yet` while the indexer and dashboard initialized. It reached the login redirect after approximately three minutes. The API subsequently returned its expected authentication challenge.
 
@@ -47,7 +48,8 @@ The dashboard initially returned `503 Wazuh dashboard server is not ready yet` w
 - VirtualBox configuration and storage evidence: locally verified
 - Service reachability: locally verified from the host
 - Dashboard/API readiness: live endpoint verification
-- Exact Wazuh component versions: not yet verified
+- Dashboard-advertised Wazuh version: live verified as `4.14.7`
+- Package-level version consistency inside the guest: not yet verified
 - End-to-end Windows event ingestion after migration: not yet verified
 
 ## Conclusion

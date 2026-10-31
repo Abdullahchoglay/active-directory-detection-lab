@@ -1,18 +1,21 @@
 # Implementation Plan
 
-## Phase 0 — Migration and recovery
+## Phase 0 — Migration and recovery — completed
 
-- Confirm destination laptop CPU, RAM, free disk and virtualization support.
-- Resume the existing Wazuh VM and perform a normal shutdown.
-- Copy the complete powered-off VM directory over an isolated Ethernet link.
-- Compare SHA-256 hashes between source and destination.
-- Register the copied VM without running both copies simultaneously.
-- Validate manager, indexer, dashboard, SSH and endpoint ingestion.
-- Retain the source copy until validation is complete.
+- [x] Confirm destination laptop CPU, RAM, free disk and virtualization support.
+- [x] Resume the transferred Wazuh VM and perform a normal shutdown.
+- [x] Record a powered-off SHA-256 baseline for the transferred VDI.
+- [x] Create and register a separate permanent clone.
+- [x] Validate dashboard, API, SSH, agent and enrollment reachability.
+- [x] Retain the original transferred copy powered off.
+- [ ] Verify exact guest package versions and filesystem expansion after authenticated guest access.
+- [ ] Verify end-to-end Windows event ingestion after the first lab agent is enrolled.
 
-## Phase 1 — Network design
+## Phase 1 — Network design — in progress
 
-- Use a dedicated private lab subnet with no public routing.
+- [x] Attach Wazuh to the dedicated VirtualBox internal network `AD-LAB`.
+- [x] Bind host-side Wazuh management forwarding to localhost only.
+- [ ] Assign stable internal addresses after the domain-controller VM exists.
 - Keep Active Directory services off normal Wi-Fi and bridged home-LAN interfaces.
 - Assign stable lab addresses and document boundaries without publishing sensitive details.
 - Permit only required Wazuh enrollment, agent and administrative traffic.

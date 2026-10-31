@@ -7,7 +7,7 @@ Prepared: 31 October 2026 (Asia/Hebron)
 - VM name: `Wazuh`
 - VirtualBox version: `7.2.14`
 - VM state: fully powered off
-- Source folder: `C:\Users\Abdul\VirtualBox VMs\Wazuh`
+- Source folder: `C:\Users\<source-user>\VirtualBox VMs\Wazuh`
 - Main disk: `Wazuh.vdi`, approximately 40.23 GB
 - Total VM folder: approximately 40.23 GB
 - Saved-state file: none
@@ -56,7 +56,7 @@ If Wi-Fi disconnects, run the same command again.
 Source:
 
 ```powershell
-Get-FileHash 'C:\Users\Abdul\VirtualBox VMs\Wazuh\Wazuh.vdi' -Algorithm SHA256
+Get-FileHash 'C:\Users\<source-user>\VirtualBox VMs\Wazuh\Wazuh.vdi' -Algorithm SHA256
 ```
 
 Destination:

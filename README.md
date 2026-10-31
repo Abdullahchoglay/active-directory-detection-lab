@@ -1,6 +1,6 @@
 # Active Directory Threat Detection and Incident Response Lab
 
-> **Status: Planning and infrastructure preparation.** This private repository is a working draft. No Active Directory deployment, detection result, alert, or investigation outcome is claimed until supported by reviewed evidence.
+> **Status: Infrastructure migration verified; Active Directory build pending.** This private repository remains a working draft. No Active Directory detection result, alert, or investigation outcome is claimed until supported by reviewed evidence.
 
 ## Overview
 
@@ -12,10 +12,14 @@ The planned lab will connect Windows domain telemetry to Wazuh, develop defensib
 
 ```mermaid
 flowchart LR
-    H[Physical endpoint] -->|Wazuh agent| W[Wazuh all-in-one VM]
-    DC[Windows Server domain controller] -->|Security, System, PowerShell and Sysmon| W
-    C[Optional Windows test client] -->|Domain authentication and endpoint telemetry| DC
-    C -->|Wazuh agent| W
+    subgraph Host[Windows 11 VirtualBox host]
+        W[Wazuh all-in-one VM]
+        DC[Planned Windows Server domain controller]
+        C[Planned Windows client VM]
+    end
+    C -->|Domain authentication| DC
+    DC -->|Security, System, PowerShell and selected Sysmon telemetry| W
+    C -->|Endpoint telemetry| W
     W --> D[Wazuh dashboard]
 ```
 
@@ -73,22 +77,26 @@ Local evidence, synthetic rule testing, and live Wazuh alerts will always be ide
 
 See [scope and safety](docs/scope-and-safety.md) for the full working boundary.
 
-## Current constraints
+## Verified infrastructure state
 
-The original host lacks enough free storage for a safe two-VM deployment. The preferred design is to move the existing Wazuh VM to a higher-capacity laptop, validate the migration, and build the domain controller there. The original Windows 11 Home endpoint cannot join an on-premises domain and will remain a monitored standalone endpoint.
+The Wazuh VM migration to the destination laptop was validated on 1 November 2026. The powered-off transferred disk received a SHA-256 baseline, a separate permanent clone was created, and the original transfer copy was retained as recovery media. The clone booted successfully; Wazuh agent and enrollment listeners were reachable, the dashboard redirected to its login page, and the API returned the expected unauthenticated `401` response.
+
+The permanent clone uses a 64 GB dynamic disk, 6 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Exact Wazuh package versions and guest filesystem expansion remain pending authenticated guest validation. See [migration validation](evidence/MIG-001-migration-validation.md).
+
+No Windows Server or Windows client VM has been built yet, and no Active Directory telemetry or detection result is claimed.
 
 ## Roadmap
 
-1. Verify the destination laptop's resources and virtualization support.
-2. Migrate and validate the existing Wazuh VM.
-3. Establish an isolated lab network.
-4. Build and harden the domain controller.
-5. Configure auditing, Wazuh and selected Sysmon telemetry.
-6. Baseline normal domain activity.
-7. Execute harmless marked scenarios.
-8. Develop and validate detections.
-9. Produce investigation reports and a sanitized evidence index.
-10. Complete repository review before publication.
+1. [x] Verify destination resources and virtualization support.
+2. [x] Preserve, clone and validate the migrated Wazuh VM.
+3. [x] Create the VirtualBox `AD-LAB` internal network attachment on Wazuh.
+4. [ ] Acquire supported Windows evaluation media from Microsoft.
+5. [ ] Build and harden the domain controller.
+6. [ ] Add a separate Windows domain client if the resource test passes.
+7. [ ] Configure auditing, Wazuh and selected Sysmon telemetry.
+8. [ ] Baseline normal domain activity and execute harmless marked scenarios.
+9. [ ] Develop detections and produce investigation reports.
+10. [ ] Complete secret, evidence, syntax and publication review.
 
 ## Repository structure
 

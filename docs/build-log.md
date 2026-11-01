@@ -48,3 +48,16 @@ Guest filesystem expansion and package-level consistency checks remain pending a
 - Ejected the installer ISO after confirming the VM booted from its virtual disk.
 
 Administrator-password completion, first sign-in and post-install configuration are not claimed in this entry. The temporary NAT adapter will be disabled before domain promotion and identity testing.
+
+## 1–2 November 2026 — Domain-controller base configuration
+
+- Completed the built-in Administrator credential step and first sign-in without recording a password in project artifacts.
+- Verified Windows Server 2025 Standard Evaluation, OS build family `26100`.
+- Renamed the Windows host to `AD-DC01`.
+- Mapped the VirtualBox internal adapter by MAC address, renamed it `AD-LAB`, and assigned static address `an isolated RFC1918 address` without a default gateway.
+- Renamed the temporary outbound adapter `TEMP-NAT`.
+- Installed the Active Directory Domain Services role and management tools; `Get-WindowsFeature` reported `Installed`.
+- Re-tested two vCPUs after installation. EFI again stalled at `DXE_AP` before Windows loaded, so the VM was returned to one vCPU and boot-verified.
+- Searched for recommended quality updates and found the October 2026 cumulative and .NET security updates, Defender platform/intelligence updates, and MSRT. Installation was started before forest promotion.
+
+Forest promotion, DNS configuration and update completion remain pending. `TEMP-NAT` will be disabled before promotion.

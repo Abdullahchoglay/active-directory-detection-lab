@@ -36,3 +36,14 @@ Image 2 was selected. Standard provides the roles required for this isolated AD 
 - Clipboard, drag-and-drop, audio and recording: disabled
 
 Installation was started only after the ISO byte count, SHA-256 and image list were verified. The media remains local and no Active Directory service is exposed to the host LAN.
+
+## Verified installation result
+
+- Installed edition: Windows Server 2025 Standard Evaluation (Desktop Experience)
+- OS build family: `26100`
+- Hostname after first reboot: `AD-DC01`
+- AD DS feature state: `Installed`
+- Isolated adapter: `AD-LAB`, `an isolated RFC1918 address`, no default gateway
+- Temporary update adapter: `TEMP-NAT`
+
+The VM requires one vCPU on this host. A second post-install two-vCPU test reproduced the same VirtualBox EFI `DXE_AP` stall observed during installation; reverting to one vCPU restored a successful Windows boot.

@@ -27,8 +27,11 @@
 - [x] Attach the primary adapter to `AD-LAB` and a temporary secondary adapter to outbound NAT.
 - [x] Acquire and hash a supported Windows Server evaluation from an official source.
 - [x] Install Windows Server 2025 Standard Evaluation (Desktop Experience) through the first-run credential handoff.
-- [ ] Complete the built-in Administrator password step and first sign-in without storing the password in project artifacts.
-- [ ] Re-test two vCPUs after installation; installation currently uses one vCPU to avoid an EFI `DXE_AP` stall under the host's hypervisor backend.
+- [x] Complete the built-in Administrator password step and first sign-in without storing the password in project artifacts.
+- [x] Rename the host `AD-DC01`, name both adapters and assign `an isolated RFC1918 address` to isolated `AD-LAB`.
+- [x] Install the AD DS role and management tools.
+- [x] Re-test two vCPUs after installation. Both tests reproduced the EFI `DXE_AP` stall, so one vCPU is the verified bootable configuration on this host.
+- [ ] Complete recommended Windows quality updates before isolation and promotion.
 - Apply updates before isolation where necessary.
 - Configure static addressing, DNS, AD DS and a test forest.
 - Create organizational units, test users and test groups.

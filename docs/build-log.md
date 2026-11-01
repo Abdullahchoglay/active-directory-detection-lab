@@ -33,4 +33,18 @@ Guest filesystem expansion and package-level consistency checks remain pending a
 - Attached adapter 2 to temporary outbound NAT for installation, activation and updates.
 - Left the VM powered off with an empty virtual DVD drive.
 
-No Windows operating system or Active Directory role is installed. The NAT adapter will be disabled before domain promotion and identity testing.
+## 1 November 2026 — Windows Server media and installation start
+
+- Downloaded the English x64 Windows Server 2025 Evaluation ISO through Microsoft's official Evaluation Center redirect.
+- Verified the exact size as 8,152,356,864 bytes and recorded SHA-256 `7B052573BA7894C9924E3E87BA732CCD354D18CB75A883EFA9B900EA125BFD51`.
+- Confirmed build `10.0.26100.32230` and all four expected Standard/Datacenter, Core/Desktop Experience image choices.
+- Selected Windows Server 2025 Standard Evaluation (Desktop Experience).
+- Saved the running Wazuh VM state before installation because its guest did not honor the ACPI shutdown request; no hard power-off was used.
+- Diagnosed a VirtualBox EFI stall at `DXE_AP` under the Windows hypervisor backend.
+- Removed the optional virtual TPM, then reduced the installer VM to one vCPU after the stall persisted. The next boot reached the Windows DVD successfully.
+- Started installation to the dedicated empty 64 GB virtual disk.
+- Completed the file-copy, device-configuration and reboot stages successfully.
+- Reached the built-in Administrator password handoff and stopped without entering or storing a password.
+- Ejected the installer ISO after confirming the VM booted from its virtual disk.
+
+Administrator-password completion, first sign-in and post-install configuration are not claimed in this entry. The temporary NAT adapter will be disabled before domain promotion and identity testing.

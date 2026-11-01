@@ -30,4 +30,14 @@ The separate Windows client is a gated objective, not a completed component.
 
 ## Installation-media result
 
-No Windows Server ISO or reusable Windows Server VM was found in the assessed storage locations. Windows evaluation media must be acquired from Microsoft before the domain-controller phase.
+No reusable Windows Server VM or ISO was present during the initial assessment. On 1 November 2026, Windows Server 2025 evaluation media was acquired from Microsoft's official Evaluation Center redirect and verified before use.
+
+| Item | Verified value |
+|---|---|
+| Media | Windows Server 2025 Evaluation, English (United States), x64 |
+| Size | 8,152,356,864 bytes |
+| SHA-256 | `7B052573BA7894C9924E3E87BA732CCD354D18CB75A883EFA9B900EA125BFD51` |
+| Build reported by VirtualBox | `10.0.26100.32230` |
+| Selected image | Windows Server 2025 Standard Evaluation (Desktop Experience) |
+
+The ISO exposed Standard and Datacenter evaluation images, each with Server Core and Desktop Experience variants. Standard Evaluation with Desktop Experience was selected because the lab does not require Datacenter-only features and the GUI simplifies repeatable portfolio validation.

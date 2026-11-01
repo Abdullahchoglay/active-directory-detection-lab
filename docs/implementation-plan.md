@@ -23,9 +23,12 @@
 
 ## Phase 2 — Domain controller
 
-- [x] Create the powered-off `AD-DC01` VM with EFI, TPM 2.0, 3 GB RAM, 2 vCPU and a 64 GB dynamic disk.
+- [x] Create the powered-off `AD-DC01` VM with EFI, 3 GB RAM, 2 vCPU and a 64 GB dynamic disk.
 - [x] Attach the primary adapter to `AD-LAB` and a temporary secondary adapter to outbound NAT.
-- Install a supported Windows Server evaluation from an official source.
+- [x] Acquire and hash a supported Windows Server evaluation from an official source.
+- [x] Install Windows Server 2025 Standard Evaluation (Desktop Experience) through the first-run credential handoff.
+- [ ] Complete the built-in Administrator password step and first sign-in without storing the password in project artifacts.
+- [ ] Re-test two vCPUs after installation; installation currently uses one vCPU to avoid an EFI `DXE_AP` stall under the host's hypervisor backend.
 - Apply updates before isolation where necessary.
 - Configure static addressing, DNS, AD DS and a test forest.
 - Create organizational units, test users and test groups.

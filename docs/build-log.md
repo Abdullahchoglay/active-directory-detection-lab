@@ -54,10 +54,26 @@ Administrator-password completion, first sign-in and post-install configuration 
 - Completed the built-in Administrator credential step and first sign-in without recording a password in project artifacts.
 - Verified Windows Server 2025 Standard Evaluation, OS build family `26100`.
 - Renamed the Windows host to `AD-DC01`.
-- Mapped the VirtualBox internal adapter by MAC address, renamed it `AD-LAB`, and assigned static address `an isolated RFC1918 address` without a default gateway.
+- Mapped the VirtualBox internal adapter by MAC address, renamed it `AD-LAB`, and assigned a static RFC1918 address without a default gateway.
 - Renamed the temporary outbound adapter `TEMP-NAT`.
 - Installed the Active Directory Domain Services role and management tools; `Get-WindowsFeature` reported `Installed`.
 - Re-tested two vCPUs after installation. EFI again stalled at `DXE_AP` before Windows loaded, so the VM was returned to one vCPU and boot-verified.
 - Searched for recommended quality updates and found the October 2026 cumulative and .NET security updates, Defender platform/intelligence updates, and MSRT. Installation was started before forest promotion.
 
-Forest promotion, DNS configuration and update completion remain pending. `TEMP-NAT` will be disabled before promotion.
+## 2 November 2026 — Verified domain-controller baseline
+
+- Installed the October 2026 Windows Server cumulative and .NET security updates, Defender platform/intelligence updates, and MSRT.
+- Verified OS build `26100.33650` after the required update restarts.
+- Corrected the guest timezone to `Israel Standard Time`.
+- Pointed the isolated adapter to the local DNS service and disabled `TEMP-NAT` in Windows and at the VirtualBox link layer.
+- Promoted `AD-DC01` as the first domain controller and DNS server for fictional forest `bluevale.test`, NetBIOS name `BLUEVALE`.
+- Verified Windows Server 2025 domain and forest functional levels.
+- Confirmed `DNS`, `KDC`, `Netlogon` and `NTDS` were running with automatic startup.
+- Confirmed the domain A record resolved to the server's static lab address.
+- Passed quiet functional checks for Advertising, Services, SYSVOL, NetLogons and Replications.
+- Reviewed the broad `dcdiag /q` exceptions: Secure Boot update events are expected because Secure Boot is disabled, and the DFS Replication test referenced startup events from before SYSVOL initialization. Later DFSR event `4602` confirmed initial SYSVOL replication completed.
+- Created protected `Bluevale Lab` OUs for users, groups, workstations, servers and service accounts.
+- Created five fictional global security groups without assigning privileges or memberships.
+- Performed a clean shutdown and created powered-off snapshot `ad-ds-baseline-2026-11-02`.
+
+Wazuh enrollment, advanced audit policy, Sysmon, test identities and detection scenarios remain pending.

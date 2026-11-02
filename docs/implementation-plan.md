@@ -12,11 +12,11 @@
 - [ ] Verify guest package consistency and filesystem expansion after authenticated guest access.
 - [ ] Verify end-to-end Windows event ingestion after the first lab agent is enrolled.
 
-## Phase 1 — Network design — in progress
+## Phase 1 — Network design — completed for the current two-VM baseline
 
 - [x] Attach Wazuh to the dedicated VirtualBox internal network `AD-LAB`.
 - [x] Bind host-side Wazuh management forwarding to localhost only.
-- [ ] Assign stable internal addresses after the domain-controller VM exists.
+- [x] Assign a stable RFC1918 address to the domain controller without publishing the exact value.
 - Keep Active Directory services off normal Wi-Fi and bridged home-LAN interfaces.
 - Assign stable lab addresses and document boundaries without publishing sensitive details.
 - Permit only required Wazuh enrollment, agent and administrative traffic.
@@ -28,15 +28,16 @@
 - [x] Acquire and hash a supported Windows Server evaluation from an official source.
 - [x] Install Windows Server 2025 Standard Evaluation (Desktop Experience) through the first-run credential handoff.
 - [x] Complete the built-in Administrator password step and first sign-in without storing the password in project artifacts.
-- [x] Rename the host `AD-DC01`, name both adapters and assign `an isolated RFC1918 address` to isolated `AD-LAB`.
+- [x] Rename the host `AD-DC01`, name both adapters and assign a static RFC1918 address to isolated `AD-LAB`.
 - [x] Install the AD DS role and management tools.
 - [x] Re-test two vCPUs after installation. Both tests reproduced the EFI `DXE_AP` stall, so one vCPU is the verified bootable configuration on this host.
-- [ ] Complete recommended Windows quality updates before isolation and promotion.
-- Apply updates before isolation where necessary.
-- Configure static addressing, DNS, AD DS and a test forest.
-- Create organizational units, test users and test groups.
+- [x] Complete recommended Windows quality updates before isolation and promotion.
+- [x] Configure static addressing, local DNS, AD DS and fictional forest `bluevale.test`.
+- [x] Disable temporary NAT before promotion.
+- [x] Create the protected lab OU hierarchy and fictional security groups.
+- [ ] Create password-backed fictional test users only when required for controlled scenarios.
 - Establish a documented account-lockout policy.
-- Capture a clean baseline and recovery point.
+- [x] Capture clean powered-off snapshot `ad-ds-baseline-2026-11-02`.
 
 ## Phase 3 — Telemetry
 

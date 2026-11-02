@@ -1,6 +1,6 @@
 # Active Directory Threat Detection and Incident Response Lab
 
-> **Status: Infrastructure migration verified; domain-controller base OS and AD DS role installed.** This private repository remains a working draft. No Active Directory detection result, alert, or investigation outcome is claimed until supported by reviewed evidence.
+> **Status: Infrastructure migration and domain-controller baseline verified.** This private repository remains a working draft. No Active Directory detection result, alert, or investigation outcome is claimed until supported by reviewed evidence.
 
 ## Overview
 
@@ -14,7 +14,7 @@ The planned lab will connect Windows domain telemetry to Wazuh, develop defensib
 flowchart LR
     subgraph Host[Windows 11 VirtualBox host]
         W[Wazuh all-in-one VM]
-        DC[Planned Windows Server domain controller]
+        DC[Windows Server 2025 domain controller]
         C[Planned Windows client VM]
     end
     C -->|Domain authentication| DC
@@ -83,7 +83,9 @@ The Wazuh VM migration to the destination laptop was validated on 1 November 202
 
 The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 6 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Guest package consistency and filesystem expansion remain pending authenticated guest validation. See [migration validation](evidence/MIG-001-migration-validation.md).
 
-`AD-DC01` runs Windows Server 2025 Standard Evaluation (Desktop Experience) from its dedicated 64 GB virtual disk. First sign-in is complete, the host is named `AD-DC01`, the isolated adapter is named `AD-LAB` with static address `an isolated RFC1918 address`, and the AD DS role binaries and management tools are installed. No password is stored in this repository. The VM uses 3 GB RAM and one vCPU because two independent two-vCPU boot tests reproduced an EFI `DXE_AP` stall under the host's Windows-hypervisor-backed VirtualBox path. The installer ISO is ejected, the secondary `TEMP-NAT` adapter remains temporary for updates, and forest promotion has not yet been claimed. No Active Directory telemetry or detection result is claimed.
+`AD-DC01` runs Windows Server 2025 Standard Evaluation (Desktop Experience), build `26100.33650`, from its dedicated 64 GB virtual disk. The isolated `AD-LAB` adapter uses a static RFC1918 address without a default gateway. The temporary NAT adapter is disabled at both the guest and VirtualBox link layers.
+
+The server is the first domain controller and DNS server for the fictional `bluevale.test` forest (`BLUEVALE`, Windows Server 2025 functional levels). DNS resolution, core directory services, SYSVOL, NetLogon, advertising and replication checks passed. A protected lab OU hierarchy and five unprivileged fictional security groups were created. No user password is stored in this repository. The VM uses 3 GB RAM and one vCPU because two independent two-vCPU boot tests reproduced an EFI `DXE_AP` stall under the host's Windows-hypervisor-backed VirtualBox path. A clean powered-off `ad-ds-baseline-2026-11-02` snapshot protects this milestone. No Wazuh ingestion or Active Directory detection result is claimed yet.
 
 ## Roadmap
 
@@ -92,7 +94,7 @@ The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 6 GB RAM, localho
 3. [x] Create the VirtualBox `AD-LAB` internal network attachment on Wazuh.
 4. [x] Prepare the powered-off domain-controller VM hardware and isolated adapters.
 5. [x] Acquire and verify supported Windows evaluation media from Microsoft.
-6. [ ] Finish updates, isolate temporary NAT, promote `bluevale.test` and harden the domain controller.
+6. [x] Finish updates, isolate temporary NAT and promote the verified `bluevale.test` domain-controller baseline.
 7. [ ] Add a separate Windows domain client if the resource test passes.
 8. [ ] Configure auditing, Wazuh and selected Sysmon telemetry.
 9. [ ] Baseline normal domain activity and execute harmless marked scenarios.

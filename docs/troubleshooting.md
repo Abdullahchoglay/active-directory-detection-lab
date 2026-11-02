@@ -22,3 +22,15 @@ Mouse interaction worked, but programmatic guest keystrokes were unreliable. No 
 ## Cryptographic transfer limitation
 
 The receiving laptop did not contain the sender's original checksum manifest. A SHA-256 hash was therefore recorded after a normal shutdown as a post-transfer baseline. The successful boot and service checks provide operational validation, but the repository does not claim an independent source-to-destination checksum comparison.
+
+## Domain-controller diagnostics reported event-log warnings
+
+The first broad `dcdiag /q` run reported the `SystemLog` and `DFSREvent` tests. The System log entries were Windows Secure Boot certificate-update failures expected on this EFI VM because Secure Boot is disabled. The DFS Replication entries were generated while the host was not yet a domain controller and during initial promotion. Later DFSR event `4602` confirmed SYSVOL initialization completed.
+
+The functional directory checks were rerun explicitly:
+
+```powershell
+dcdiag /q /test:Advertising /test:Services /test:SysVolCheck /test:NetLogons /test:Replications
+```
+
+They returned no output, which is the quiet success condition. The event-log warnings are retained as evidence and were not cleared to force a cosmetically clean result.

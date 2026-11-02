@@ -98,3 +98,18 @@ Test identities and detection scenarios remain pending.
 - Captured 121,630 bytes of TCP payload on the bidirectional Wazuh `1514` flow during a 30-second post-validation window.
 
 Dashboard-indexed event correlation is intentionally deferred to the first marked investigation scenario.
+
+## 2 November 2026 — Controlled account-lockout scenario
+
+- Created one fictional test identity with a runtime-generated password that was never printed or persisted in project artifacts.
+- Added the identity only to the unprivileged `GG-Employees` group.
+- Performed exactly five invalid network-logon attempts, matching the configured lockout threshold.
+- Verified the account locked, unlocked it, confirmed the unlocked state and disabled it during cleanup.
+- Recorded Security Event IDs `4625`, `4720`, `4725`, `4728`, `4740` and `4767` for the test identity.
+- Counted 19 Sysmon events during the local scenario window.
+- Recorded scenario marker `BLV-AUTH-20261102-164444` and script exit code `0`.
+- Captured 341,186 bytes of TCP payload in the bidirectional Wazuh `1514` flow during a 30-second post-event window.
+- Discovered that saved-state resume had left the guest clock approximately 5 hours 32 minutes behind the host.
+- Preserved the original guest timestamps, performed a controlled outbound-only Windows Time synchronization, and immediately disabled the guest NAT adapter and VirtualBox cable again.
+
+The scenario is documented as local Windows evidence plus verified Wazuh transport. Dashboard indexing and alert fields remain pending and are not claimed.

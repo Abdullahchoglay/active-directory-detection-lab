@@ -17,3 +17,7 @@ Suggested sections:
 - Limitations
 
 No report should claim a live alert unless the alert was actually observed.
+
+## Current investigations
+
+- [`IR-001`](IR-001-controlled-account-lockout.md) — bounded failed logons, account lockout, recovery and cleanup

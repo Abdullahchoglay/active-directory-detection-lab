@@ -8,5 +8,6 @@ Remove or obscure credentials, personal data, notifications, unrelated applicati
 
 - `sysmon-service-verified.png` — signed Sysmon installation result, running service and enabled Operational channel
 - `wazuh-event-channels-verified.png` — Wazuh event-channel list, running service and benign local event counts
+- `controlled-lockout-scenario.png` — bounded lockout result, event counts, cleanup state and scenario marker
 
 Neither reviewed screenshot contains credentials, personal identifiers, public IP addresses, MAC addresses or exact lab addresses.

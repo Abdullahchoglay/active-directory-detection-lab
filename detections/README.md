@@ -14,3 +14,7 @@ Each document should describe:
 - Links to sanitized evidence and investigations
 
 Planned status is not evidence. Detection documents should be added only as telemetry is verified.
+
+## Current detection objectives
+
+- [`AD-LOCKOUT-001`](AD-LOCKOUT-001.md) — repeated failures followed by an account lockout

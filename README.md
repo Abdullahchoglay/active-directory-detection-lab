@@ -40,10 +40,10 @@ The lab network will be isolated from the public internet. Active Directory serv
 | Area | Examples | Status |
 |---|---|---|
 | Authentication | Successful and failed domain logons | Planned |
-| Authentication abuse | Bounded failures against test accounts | Planned |
+| Authentication abuse | Bounded failures against a fictional test account | Locally verified; dashboard review pending |
 | Account lifecycle | Create, disable, enable and delete test users | Planned |
 | Access control | Add and remove a test user from a privileged group | Planned |
-| Lockout | Trigger and investigate a test-account lockout | Planned |
+| Lockout | Trigger and investigate a test-account lockout | Locally verified; dashboard review pending |
 | Kerberos | TGT and service-ticket activity | Planned |
 | Directory changes | Selected Group Policy or directory-object changes | Planned |
 | Endpoint activity | Marked PowerShell, scheduled task and service creation | Planned |

@@ -16,7 +16,7 @@ On 1 November 2026, the transferred Wazuh VirtualBox VM was assessed, shut down 
 
 - Clone name: `Wazuh-Primary`
 - Clone storage: dedicated local lab directory outside the transfer staging folder
-- RAM: 6 GB
+- RAM: 4.5 GB
 - vCPU: 2
 - Dynamic disk capacity: 64 GB
 - Powered-off clone VDI SHA-256: `BD49999C2026764B93D90B20C063F06A06E14E1FFCA8997DC806A5204AAF8C97`
@@ -26,7 +26,7 @@ On 1 November 2026, the transferred Wazuh VirtualBox VM was assessed, shut down 
 - Original transfer VM: retained powered off as the recovery copy
 - Recovery snapshot: `migration-verified-2026-11-01`
 
-The virtual disk was expanded at the VirtualBox layer. Guest partition and filesystem expansion still requires authenticated guest validation and is not claimed complete.
+The virtual disk was expanded at the VirtualBox layer. Authenticated guest validation later showed a 41 GB root filesystem with approximately 15 GB free. Guest expansion is therefore deferred and is not claimed complete.
 
 ## Live validation
 
@@ -40,6 +40,8 @@ The clone booted and obtained its private NAT address. The following checks pass
 | Dashboard | HTTP 302 redirect to `/app/login` |
 | Wazuh API | HTTP 401 with `No authorization token provided` |
 | Dashboard metadata | Wazuh `4.14.7`, OpenSearch Dashboards `2.19.5` |
+| Guest package consistency | Manager, indexer, dashboard and Filebeat `4.14.7-1` |
+| Core services | Manager, indexer, dashboard and Filebeat active |
 
 The dashboard initially returned `503 Wazuh dashboard server is not ready yet` while the indexer and dashboard initialized. It reached the login redirect after approximately three minutes. The API subsequently returned its expected authentication challenge.
 
@@ -49,9 +51,10 @@ The dashboard initially returned `503 Wazuh dashboard server is not ready yet` w
 - Service reachability: locally verified from the host
 - Dashboard/API readiness: live endpoint verification
 - Dashboard-advertised Wazuh version: live verified as `4.14.7`
-- Package-level version consistency inside the guest: not yet verified
-- End-to-end Windows event ingestion after migration: not yet verified
+- Package-level version consistency inside the guest: verified
+- Domain-controller agent service and bidirectional TCP `1514` transport: verified in `WAZ-001`
+- Dashboard-indexed scenario event: not yet verified
 
 ## Conclusion
 
-The migration recovery gate is satisfied for continued lab construction. The permanent clone boots and exposes the expected Wazuh services only through local forwarding, while the original transferred VM remains available for recovery. Active Directory construction and endpoint ingestion remain pending.
+The migration recovery gate is satisfied. The permanent clone boots, exposes management services only through local forwarding, and receives bidirectional agent transport over the VM-only lab network. The original transferred VM remains available for recovery. Dashboard-level scenario correlation remains pending.

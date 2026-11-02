@@ -76,4 +76,25 @@ Administrator-password completion, first sign-in and post-install configuration 
 - Created five fictional global security groups without assigning privileges or memberships.
 - Performed a clean shutdown and created powered-off snapshot `ad-ds-baseline-2026-11-02`.
 
-Wazuh enrollment, advanced audit policy, Sysmon, test identities and detection scenarios remain pending.
+Test identities and detection scenarios remain pending.
+
+## 2 November 2026 — Audit and telemetry baseline
+
+- Applied a five-attempt account-lockout threshold with 15-minute duration and observation window to the fictional lab domain.
+- Enabled Success and Failure auditing for the selected account-logon, logon/logoff, account-management, directory-service, policy-change, process-creation, object-access and system-integrity subcategories.
+- Enabled process command-line auditing, PowerShell Script Block Logging and PowerShell Module Logging.
+- Increased the Security log to 256 MB and PowerShell Operational log to 64 MB.
+- Verified Wazuh manager, indexer, dashboard and Filebeat packages at `4.14.7-1`; all related services were active.
+- Reduced the Wazuh VM to 4.5 GB RAM and revalidated simultaneous operation with the 3 GB domain controller.
+- Configured Wazuh's isolated adapter with a static RFC1918 address and no default route.
+- Verified the Wazuh root filesystem at 41 GB with approximately 15 GB free; guest expansion was deferred.
+- Acquired the version-matched Wazuh Windows agent from the official package repository and verified its valid Wazuh, Inc. signature.
+- Installed and enrolled `AD-DC01`; the installer returned `0`, `WazuhSvc` reached `STATE: 4 RUNNING`, and bidirectional TCP `1514` traffic was captured on the isolated link.
+- Acquired Microsoft Sysmon `15.22` from the official Sysinternals endpoint and verified its Microsoft signature.
+- Installed the well-formed schema `4.91` configuration; `Sysmon64` reached `STATE: 4 RUNNING` and its Operational log was enabled at 64 MB.
+- Verified Application, Security, System, PowerShell Operational and Sysmon Operational event-channel collection in the Wazuh agent configuration.
+- Generated benign process, DNS and Application-log activity, including marker `BluevaleLab / Event ID 100`.
+- Counted 201 recent Sysmon and 157 recent PowerShell events locally.
+- Captured 121,630 bytes of TCP payload on the bidirectional Wazuh `1514` flow during a 30-second post-validation window.
+
+Dashboard-indexed event correlation is intentionally deferred to the first marked investigation scenario.

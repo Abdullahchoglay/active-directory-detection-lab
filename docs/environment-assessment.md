@@ -21,8 +21,8 @@ The host can run the Wazuh VM and a small domain controller, but simultaneous Wa
 
 Planned working envelope:
 
-- Wazuh: 6 GB RAM, 2 vCPU
-- Domain controller: approximately 2.5–3 GB RAM, 2 vCPU
+- Wazuh: 4.5 GB RAM, 2 vCPU
+- Domain controller: 3 GB RAM, 1 vCPU
 - Client: 4 GB RAM, 2 vCPU, created only after an all-VM resource test
 - Dynamic disks with a host free-space floor of at least 80 GB
 

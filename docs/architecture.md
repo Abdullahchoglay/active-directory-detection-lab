@@ -28,4 +28,17 @@ Exact addresses, adapter identifiers and machine identifiers will remain outside
 
 ## Resource assumptions
 
-The host has approximately 16 GB RAM. Wazuh uses 6 GB and 2 vCPU. The domain controller uses 3 GB and one vCPU; two-vCPU boot tests consistently stalled in EFI under the current VirtualBox/Windows-hypervisor path. A 4 GB Windows client is created only if the three-VM resource test leaves sufficient host memory. Unrelated memory-heavy applications must be closed during multi-VM testing.
+The host has approximately 16 GB RAM. Wazuh uses 4.5 GB and 2 vCPU. The domain controller uses 3 GB and one vCPU; two-vCPU boot tests consistently stalled in EFI under the current VirtualBox/Windows-hypervisor path. Simultaneous operation left a narrow but usable host-memory margin. A separate Windows client remains resource gated and should be attempted only after shutting down unrelated workloads or revising allocations.
+
+## Verified telemetry path
+
+```mermaid
+flowchart LR
+    E[Windows Security, System, Application, PowerShell and Sysmon logs]
+    A[Wazuh 4.14.7 Windows agent]
+    M[Wazuh manager 4.14.7]
+    E -->|eventchannel collection| A
+    A -->|encrypted TCP 1514 on AD-LAB| M
+```
+
+Local event generation and bidirectional agent transport are verified. Dashboard indexing and alert correlation remain scenario-level evidence gates.

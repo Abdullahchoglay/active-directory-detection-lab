@@ -13,11 +13,17 @@ The VM remained running and its guest network was responsive. The API became ava
 
 ## Host memory pressure
 
-With the transferred VM configured for 8 GB RAM, host free memory dropped below 1 GB and VirtualBox logged short guest heartbeat stalls. The permanent clone was set to 6 GB, nonessential VM features were disabled, and unrelated workloads should be closed before running additional lab VMs.
+With the transferred VM configured for 8 GB RAM, host free memory dropped below 1 GB and VirtualBox logged short guest heartbeat stalls. The permanent clone was first reduced to 6 GB and later to 4.5 GB after package and service checks. Wazuh and the 3 GB domain controller then ran simultaneously with a narrow but stable host-memory margin. Nonessential VM features remain disabled, and unrelated workloads should be closed before adding a client VM.
 
 ## VirtualBox console rejected synthetic keyboard input
 
-Mouse interaction worked, but programmatic guest keystrokes were unreliable. No untrusted pasted text was executed. Service readiness was verified through localhost-only network probes instead of depending on console automation.
+Mouse and keyboard capture became unreliable after the domain controller entered normal operation. The console also briefly rendered black after a VirtualBox preferences dialog; a save-state and resume restored it without rebooting Windows. No untrusted pasted text was executed.
+
+Signed deployment packages and configuration launchers were placed on read-only ISO images. The user explicitly launched them inside the guest and approved UAC. Service readiness was then verified from installer output and isolated-link packet captures instead of depending on console automation.
+
+## Wazuh agent installed but initially produced no transport
+
+The first launcher installed the MSI successfully but did not explicitly start `WazuhSvc`. A 30-second isolated-link capture contained no TCP agent flow. The launcher was corrected to elevate first, start the service and query its state. The installer returned `0`, the service reached `STATE: 4 RUNNING`, and a repeat capture showed bidirectional TCP `1514` traffic.
 
 ## Cryptographic transfer limitation
 

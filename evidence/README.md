@@ -9,3 +9,6 @@ Raw EVTX files, packet captures, unrestricted JSON exports, credentials, machine
 - [`MIG-001`](MIG-001-migration-validation.md) — migrated Wazuh VM validation
 - [`ACQ-001`](ACQ-001-windows-server-media.md) — Windows Server evaluation-media acquisition
 - [`AD-001`](AD-001-domain-controller-baseline.md) — sanitized domain-controller baseline validation
+- [`AUD-001`](AUD-001-windows-audit-baseline.md) — Windows Advanced Audit Policy, PowerShell logging and retention baseline
+- [`WAZ-001`](WAZ-001-domain-controller-agent.md) — domain-controller agent and isolated transport validation
+- [`SYS-001`](SYS-001-sysmon-telemetry.md) — Sysmon, Wazuh event-channel and telemetry-flow baseline

@@ -9,8 +9,9 @@
 - [x] Validate dashboard, API, SSH, agent and enrollment reachability.
 - [x] Retain the original transferred copy powered off.
 - [x] Verify the dashboard-advertised Wazuh version (`4.14.7`).
-- [ ] Verify guest package consistency and filesystem expansion after authenticated guest access.
-- [ ] Verify end-to-end Windows event ingestion after the first lab agent is enrolled.
+- [x] Verify guest package consistency and filesystem health after authenticated guest access.
+- [x] Verify Windows agent enrollment and bidirectional event transport.
+- [ ] Verify a uniquely marked Windows event in the dashboard and record its decoder/rule fields.
 
 ## Phase 1 — Network design — completed for the current two-VM baseline
 
@@ -36,17 +37,19 @@
 - [x] Disable temporary NAT before promotion.
 - [x] Create the protected lab OU hierarchy and fictional security groups.
 - [ ] Create password-backed fictional test users only when required for controlled scenarios.
-- Establish a documented account-lockout policy.
+- [x] Establish a documented account-lockout policy.
 - [x] Capture clean powered-off snapshot `ad-ds-baseline-2026-11-02`.
 
-## Phase 3 — Telemetry
+## Phase 3 — Telemetry — local and transport baseline completed
 
-- Record exact Windows, Wazuh and Sysmon versions.
-- Configure recommended Advanced Audit Policy subcategories.
-- Enroll the domain controller in Wazuh.
-- Collect Security, System and PowerShell event channels.
-- Add Sysmon only for telemetry that materially improves the investigation.
-- Validate local event generation before writing custom rules.
+- [x] Record exact Windows, Wazuh and Sysmon versions.
+- [x] Configure recommended Advanced Audit Policy subcategories.
+- [x] Enroll the domain controller in Wazuh.
+- [x] Collect Application, Security, System and PowerShell event channels.
+- [x] Add reviewed Sysmon telemetry.
+- [x] Validate local event generation before writing custom rules.
+- [x] Verify bidirectional encrypted transport on the isolated link.
+- [ ] Correlate a unique scenario marker to a dashboard event and capture decoded fields.
 
 ## Phase 4 — Detection engineering
 

@@ -1,6 +1,6 @@
 # Active Directory Threat Detection and Incident Response Lab
 
-> **Status: Infrastructure migration and domain-controller baseline verified.** This private repository remains a working draft. No Active Directory detection result, alert, or investigation outcome is claimed until supported by reviewed evidence.
+> **Status: Domain-controller telemetry foundation verified.** Wazuh agent transport, Sysmon, Windows event channels and benign local event generation are working. This private repository remains a working draft; no Active Directory detection or dashboard-alert outcome is claimed until supported by reviewed scenario evidence.
 
 ## Overview
 
@@ -81,11 +81,13 @@ See [scope and safety](docs/scope-and-safety.md) for the full working boundary.
 
 The Wazuh VM migration to the destination laptop was validated on 1 November 2026. The powered-off transferred disk received a SHA-256 baseline, a separate permanent clone was created, and the original transfer copy was retained as recovery media. The clone booted successfully; Wazuh agent and enrollment listeners were reachable, the dashboard redirected to its login page, and the API returned the expected unauthenticated `401` response.
 
-The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 6 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Guest package consistency and filesystem expansion remain pending authenticated guest validation. See [migration validation](evidence/MIG-001-migration-validation.md).
+The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 4.5 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Manager, indexer, dashboard and Filebeat packages were verified at `4.14.7-1`; all core services were active. The root filesystem remains healthy with approximately 15 GB free, so guest expansion is deferred rather than claimed complete. See [migration validation](evidence/MIG-001-migration-validation.md).
 
 `AD-DC01` runs Windows Server 2025 Standard Evaluation (Desktop Experience), build `26100.33650`, from its dedicated 64 GB virtual disk. The isolated `AD-LAB` adapter uses a static RFC1918 address without a default gateway. The temporary NAT adapter is disabled at both the guest and VirtualBox link layers.
 
-The server is the first domain controller and DNS server for the fictional `bluevale.test` forest (`BLUEVALE`, Windows Server 2025 functional levels). DNS resolution, core directory services, SYSVOL, NetLogon, advertising and replication checks passed. A protected lab OU hierarchy and five unprivileged fictional security groups were created. No user password is stored in this repository. The VM uses 3 GB RAM and one vCPU because two independent two-vCPU boot tests reproduced an EFI `DXE_AP` stall under the host's Windows-hypervisor-backed VirtualBox path. A clean powered-off `ad-ds-baseline-2026-11-02` snapshot protects this milestone. No Wazuh ingestion or Active Directory detection result is claimed yet.
+The server is the first domain controller and DNS server for the fictional `bluevale.test` forest (`BLUEVALE`, Windows Server 2025 functional levels). DNS resolution, core directory services, SYSVOL, NetLogon, advertising and replication checks passed. A protected lab OU hierarchy and five unprivileged fictional security groups were created. No user password is stored in this repository. The VM uses 3 GB RAM and one vCPU because two independent two-vCPU boot tests reproduced an EFI `DXE_AP` stall under the host's Windows-hypervisor-backed VirtualBox path. A clean powered-off `ad-ds-baseline-2026-11-02` snapshot protects this milestone.
+
+The domain controller now runs the version-matched Wazuh `4.14.7` agent and Microsoft Sysmon `15.22`. Application, Security, System, PowerShell Operational and Sysmon Operational channels are configured for Wazuh collection. Local service state, event generation and bidirectional encrypted TCP `1514` transport were verified. Dashboard-indexed events, Wazuh rule IDs and alert levels remain the next evidence gate. See [`WAZ-001`](evidence/WAZ-001-domain-controller-agent.md) and [`SYS-001`](evidence/SYS-001-sysmon-telemetry.md).
 
 ## Roadmap
 
@@ -96,7 +98,7 @@ The server is the first domain controller and DNS server for the fictional `blue
 5. [x] Acquire and verify supported Windows evaluation media from Microsoft.
 6. [x] Finish updates, isolate temporary NAT and promote the verified `bluevale.test` domain-controller baseline.
 7. [ ] Add a separate Windows domain client if the resource test passes.
-8. [ ] Configure auditing, Wazuh and selected Sysmon telemetry.
+8. [x] Configure auditing, Wazuh and selected Sysmon telemetry.
 9. [ ] Baseline normal domain activity and execute harmless marked scenarios.
 10. [ ] Develop detections and produce investigation reports.
 11. [ ] Complete secret, evidence, syntax and publication review.

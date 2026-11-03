@@ -82,5 +82,5 @@ The bounded `IR-001` scenario:
 - [x] Review every screenshot.
 - [x] Check Markdown links and repository structure.
 - [x] Remove draft wording and unsupported claims.
-- [ ] Confirm final local and remote branches match after publication.
-- [ ] Create the signed-off `v1.0.0` tag and GitHub release after final evidence review.
+- [x] Confirm final local and remote branches match after publication.
+- [x] Create the signed-off `v1.0.0` tag and GitHub release after final evidence review.

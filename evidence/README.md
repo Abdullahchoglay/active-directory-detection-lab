@@ -14,3 +14,4 @@ Raw EVTX files, packet captures, unrestricted JSON exports, credentials, machine
 - [`SYS-001`](SYS-001-sysmon-telemetry.md) — Sysmon, Wazuh event-channel and telemetry-flow baseline
 - [`WAZ-002`](WAZ-002-controlled-lockout-indexing.md) — live Wazuh indexing correlation for the controlled lockout scenario
 - [`WAZ-003`](WAZ-003-account-lifecycle-indexing.md) — live Wazuh rule mapping for controlled account and group changes
+- [`WAZ-004`](WAZ-004-failed-logon-indexing.md) — live Wazuh mapping for the five-event failed-logon sequence

@@ -7,7 +7,7 @@
 - [x] Record a powered-off SHA-256 baseline for the transferred VDI.
 - [x] Create and register a separate permanent clone.
 - [x] Validate dashboard, API, SSH, agent and enrollment reachability.
-- [x] Retain the original transferred copy powered off.
+- [x] Retain the original transferred copy non-running as recovery media.
 - [x] Verify the dashboard-advertised Wazuh version (`4.14.7`).
 - [x] Verify guest package consistency and filesystem health after authenticated guest access.
 - [x] Verify Windows agent enrollment and bidirectional event transport.
@@ -55,34 +55,32 @@
 - [x] Capture exact Wazuh rule ID, level, groups and lockout-specific fields for Event ID `4740`.
 - [x] Capture exact rule ID, level, groups and ATT&CK fields for account creation, group membership, unlock and disable events.
 
-## Phase 4 — Detection engineering
+## Phase 4 — Detection engineering — completed for v1.0
 
 - [x] Baseline built-in Wazuh coverage for the first lockout and account-lifecycle sequence.
 - [x] Document why redundant custom rules were not deployed for the verified built-in alerts.
-- Use a reserved project-specific custom-rule range after checking for collisions.
-- Validate XML before deployment.
-- Test representative events with `wazuh-logtest`.
-- Restart services only after configuration validation and backup.
-- Record rule IDs, levels, decoded fields and ATT&CK mappings.
+- [x] Record rule IDs, levels, decoded fields and ATT&CK mappings for five failure alerts, one lockout and four lifecycle alerts.
+- [x] Mark custom-rule collision checks, XML deployment and `wazuh-logtest` as not applicable because no custom XML was deployed.
+- [x] Avoid an unnecessary manager restart.
 
-## Phase 5 — Scenarios and investigations
+## Phase 5 — Scenarios and investigations — completed for v1.0
 
-Each scenario will:
+The bounded `IR-001` scenario:
 
-1. Generate a unique marker.
-2. Record exact local time and timezone.
-3. Confirm the local event.
-4. Confirm live Wazuh ingestion or independent rule validation.
-5. Record relevant identities, hosts, processes and authentication fields.
-6. Produce a concise investigation and analyst conclusion.
-7. Explicitly state unverified portions.
+1. [x] Generated a unique marker.
+2. [x] Recorded exact local time, timezone and the clock-quality caveat.
+3. [x] Confirmed the local events and bounded counts.
+4. [x] Confirmed live Wazuh ingestion and exact built-in rules.
+5. [x] Recorded relevant identity, host, process and authentication fields.
+6. [x] Produced an investigation and analyst conclusion.
+7. [x] Stated unverified portions and cleanup state explicitly.
 
-## Phase 6 — Publication review
+## Phase 6 — Publication review — release gate
 
-- Validate XML, PowerShell and Markdown.
-- Scan tracked files and history for secrets.
-- Review every screenshot.
-- Check links and repository structure.
-- Remove placeholders and unsupported claims.
-- Confirm local and remote branches match.
-- Publish only after final evidence review.
+- [x] Validate the committed PowerShell helper; custom XML validation is not applicable.
+- [ ] Sanitize and rescan the complete Git history.
+- [x] Review every screenshot.
+- [x] Check Markdown links and repository structure.
+- [x] Remove draft wording and unsupported claims.
+- [ ] Confirm final local and remote branches match after publication.
+- [ ] Create the signed-off `v1.0.0` tag and GitHub release after final evidence review.

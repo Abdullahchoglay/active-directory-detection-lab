@@ -16,6 +16,8 @@ On 2 November 2026, Microsoft Sysmon `15.22` was installed on the domain control
 
 The source archive was downloaded from Microsoft's official Sysinternals endpoint. Its local SHA-256 was `00ECF1B46AEC99299D3AE0BCA79DC621458BD014B20B509D7C5C8E8C8611AA54`.
 
+The deployed XML is byte-for-byte identical to the pinned balanced Sysmon Modular profile used in the earlier [Sysmon Threat Detection Lab](https://github.com/Abdullahchoglay/sysmon-detection-lab). It is attributed to Olaf Hartong and contributors, inspired by SwiftOnSecurity's original configuration; no authorship is claimed. The exact upstream release and licensing caveat are documented in the [configuration reference](../docs/configuration-reference.md).
+
 ## Configuration validation
 
 | Item | Verified value |
@@ -62,7 +64,7 @@ The raw capture and exact RFC1918 addresses remain outside Git.
 - Wazuh agent configuration and service health: locally verified
 - Event generation: locally verified
 - Endpoint-to-manager encrypted transport after event generation: locally verified
-- Dashboard search, decoder fields, Wazuh rule IDs and alert levels: not yet claimed
+- Dashboard mapping for this benign baseline marker: not claimed in this evidence item
 
-This item proves the endpoint telemetry and transport foundation. A later scenario must still correlate a unique marker to a reviewed dashboard event before claiming end-to-end indexed detection.
+This item proves the endpoint telemetry and transport foundation. The later `IR-001` identity scenario established end-to-end indexed detection for the Security events in scope; it does not retroactively claim a dashboard result for the benign baseline marker.
 

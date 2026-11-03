@@ -1,6 +1,6 @@
 # Detections
 
-This directory will contain one document per verified detection objective.
+This directory contains one document per verified v1.0 detection objective.
 
 Each document should describe:
 

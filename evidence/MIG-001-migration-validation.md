@@ -57,4 +57,4 @@ The dashboard initially returned `503 Wazuh dashboard server is not ready yet` w
 
 ## Conclusion
 
-The migration recovery gate is satisfied. The permanent clone boots, exposes management services only through local forwarding, and receives bidirectional agent transport over the VM-only lab network. The original transferred VM remains available for recovery. Dashboard-level scenario correlation remains pending.
+The migration recovery gate is satisfied. The permanent clone boots, exposes management services only through local forwarding, and receives bidirectional agent transport over the VM-only lab network. The original transferred VM remains available and non-running as recovery media. Dashboard-level correlation was later verified in [`WAZ-002`](WAZ-002-controlled-lockout-indexing.md), [`WAZ-003`](WAZ-003-account-lifecycle-indexing.md) and [`WAZ-004`](WAZ-004-failed-logon-indexing.md).

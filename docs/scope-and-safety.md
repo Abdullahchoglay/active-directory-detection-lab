@@ -15,7 +15,7 @@ This lab is limited to systems, virtual machines, accounts and networks owned by
 - Configuration files are backed up before modification.
 - XML and PowerShell syntax is checked before deployment.
 - Wazuh and Windows service health is confirmed after material changes.
-- Test accounts and objects are cleaned up after evidence collection.
+- Test accounts are disabled at scenario completion and removed only after evidence review; the retained state is documented explicitly.
 
 ## Evidence handling
 

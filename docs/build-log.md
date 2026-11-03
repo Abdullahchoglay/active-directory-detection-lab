@@ -22,7 +22,7 @@
 - Created powered-off snapshot `migration-verified-2026-11-01`.
 - Retained the transferred VM powered off as the recovery copy.
 
-Guest filesystem expansion and package-level consistency checks remain pending authenticated guest access.
+At this checkpoint, guest filesystem expansion and package-level consistency checks remained pending authenticated guest access. Package consistency was later verified; filesystem expansion was intentionally deferred because the root filesystem remained healthy with sufficient free space.
 
 ## 1 November 2026 — Domain-controller hardware preparation
 
@@ -76,7 +76,7 @@ Administrator-password completion, first sign-in and post-install configuration 
 - Created five fictional global security groups without assigning privileges or memberships.
 - Performed a clean shutdown and created powered-off snapshot `ad-ds-baseline-2026-11-02`.
 
-Test identities and detection scenarios remain pending.
+At this checkpoint, test identities and detection scenarios remained pending. They were completed in the later controlled scenario documented below.
 
 ## 2 November 2026 — Audit and telemetry baseline
 
@@ -140,3 +140,10 @@ The scenario was first documented as local Windows evidence plus verified Wazuh 
 - Confirmed the group change involved only the unprivileged `GG-Employees` lab group; no privileged-group validation is claimed.
 - Excluded private addresses, SIDs, event-record identifiers and browser screenshots containing unrelated personal context.
 - Declined to add duplicate event-ID rules; documented future value in lifecycle correlation and privileged-group prioritization instead.
+
+## 3 November 2026 — Failed-logon sequence validation
+
+- Queried the unique controlled account with Event ID `4625`; Wazuh returned all five expected live alerts.
+- Verified decoder `windows_eventchannel`, built-in rule `60122`, level `5`, description `Logon Failure - Unknown user or bad password` and authentication-failure rule groups.
+- Expanded one alert and verified network logon type `3`, `Negotiate`, `Advapi`, the general logon-failure status, incorrect-password substatus and the controlled Windows PowerShell process.
+- Preserved the distinction between Wazuh's observed `T1531` metadata and the analyst's sequence-level `T1110.001` password-guessing interpretation.

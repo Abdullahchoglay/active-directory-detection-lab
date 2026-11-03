@@ -17,16 +17,16 @@ The Windows hypervisor remains enabled. It is not disabled for performance becau
 
 ## Resource decision
 
-The host can run the Wazuh VM and a small domain controller, but simultaneous Wazuh, domain-controller and Windows-client operation requires conservative allocation and closing unrelated memory-heavy applications.
+The host safely runs the Wazuh VM and a small domain controller. A final check with both active left approximately 1.4 GB free, so a third 4 GB Windows client would overcommit the host and is excluded from v1.0.
 
-Planned working envelope:
+Verified working envelope:
 
 - Wazuh: 4.5 GB RAM, 2 vCPU
 - Domain controller: 3 GB RAM, 1 vCPU
-- Client: 4 GB RAM, 2 vCPU, created only after an all-VM resource test
+- Client: not created; resource-gated by the measured memory margin
 - Dynamic disks with a host free-space floor of at least 80 GB
 
-The separate Windows client is a gated objective, not a completed component.
+The completed v1.0 architecture is intentionally two VMs. The optional client can be revisited after a memory upgrade or by running components non-concurrently.
 
 ## Installation-media result
 

@@ -1,124 +1,103 @@
 # Active Directory Threat Detection and Incident Response Lab
 
-> **Status: First identity investigation verified end to end.** The domain controller is monitored by Wazuh and Sysmon. A controlled account-lockout investigation now includes local Windows evidence, a live level-9 lockout alert, and exact built-in Wazuh mappings for four companion account-lifecycle events. This private repository remains a working draft while additional scenarios are completed.
+> **v1.0:** A completed, resource-aware identity detection lab with an isolated Windows Server domain controller, Wazuh and Sysmon telemetry, two detection objectives, one end-to-end investigation, and live evidence for ten scenario events.
 
 ## Overview
 
-This project will extend the existing [Home SOC Lab](https://github.com/Abdullahchoglay/home-soc-lab) and [Sysmon Detection Lab](https://github.com/Abdullahchoglay/sysmon-detection-lab) with identity-focused monitoring in an isolated Active Directory environment.
+This project extends the [Home SOC Lab](https://github.com/Abdullahchoglay/home-soc-lab) and [Sysmon Threat Detection Lab](https://github.com/Abdullahchoglay/sysmon-detection-lab) into Active Directory monitoring. It focuses on evidence-backed identity detection rather than repeating the earlier Wazuh installation and endpoint-telemetry work.
 
-The planned lab will connect Windows domain telemetry to Wazuh, develop defensible detections, and document harmless controlled scenarios using local evidence, rule validation, and live alerts where available.
+The lab demonstrates:
 
-## Planned architecture
+- An isolated fictional `bluevale.test` forest on Windows Server 2025
+- Windows Security, PowerShell and Sysmon collection through Wazuh `4.14.7`
+- Five controlled failed network logons followed by an account lockout
+- Live Wazuh alert mapping for account creation, group membership, unlock and disable actions
+- ATT&CK-aware analysis that distinguishes observed rule metadata from analyst interpretation
+- Sanitized evidence, reproducible safety gates and explicit limitations
+
+## Architecture
 
 ```mermaid
 flowchart LR
     subgraph Host[Windows 11 VirtualBox host]
-        W[Wazuh all-in-one VM]
-        DC[Windows Server 2025 domain controller]
-        C[Planned Windows client VM]
+        DC[AD-DC01<br/>Windows Server 2025<br/>bluevale.test]
+        W[Wazuh-Primary<br/>Manager, indexer and dashboard]
     end
-    C -->|Domain authentication| DC
-    DC -->|Security, System, PowerShell and selected Sysmon telemetry| W
-    C -->|Endpoint telemetry| W
-    W --> D[Wazuh dashboard]
+    DC -->|Security, System, Application, PowerShell and Sysmon<br/>encrypted TCP 1514 on AD-LAB| W
+    W --> D[Dashboard via localhost-only forwarding]
 ```
 
-The lab network will be isolated from the public internet. Active Directory services will not be exposed through bridged networking or public port forwarding.
+`AD-LAB` is a VirtualBox internal network. The domain controller has no connected NAT or bridged path during identity testing. No LDAP, Kerberos, DNS, SMB, RPC or RDP service is publicly exposed. A separate client VM was excluded from v1.0 because measured host memory made a third simultaneous VM unsafe; see [known limitations](docs/known-limitations.md).
 
-## Objectives
+## Verified scenario
 
-- Build a small test-only Active Directory forest.
-- Monitor the domain controller with Wazuh.
-- Collect identity, Kerberos, account-management, PowerShell, task, service, and selected Sysmon telemetry.
-- Develop focused custom Wazuh rules only where built-in coverage is insufficient.
-- Investigate controlled activity using unique markers and exact timestamps.
-- Map verified activity to appropriate MITRE ATT&CK techniques.
-- Publish only sanitized evidence that supports each claim.
+Marker `BLV-AUTH-20261102-164444` identified one bounded fictional-account sequence:
 
-## Planned scenarios
+| Activity | Windows event | Count | Live Wazuh result |
+|---|---:|---:|---|
+| Failed network logon | `4625` | `5` | Rule `60122`, level `5` |
+| Account created | `4720` | `1` | Rule `60109`, level `8` |
+| Added to unprivileged group | `4728` | `1` | Rule `60141`, level `5` |
+| Account locked out | `4740` | `1` | Rule `60115`, level `9` |
+| Account unlocked | `4767` | `1` | Rule `60133`, level `5` |
+| Account disabled | `4725` | `1` | Rule `60111`, level `8` |
 
-| Area | Examples | Status |
-|---|---|---|
-| Authentication | Successful and failed domain logons | Planned |
-| Authentication abuse | Bounded failures against a fictional test account | Local sequence and live Wazuh indexing verified |
-| Account lifecycle | Create, disable, enable and delete test users | Create, unlock and disable live alerts verified; enable and delete remain planned |
-| Access control | Add and remove a test user from a privileged group | Unprivileged group addition verified; privileged-group scenario remains planned |
-| Lockout | Trigger and investigate a test-account lockout | Live Wazuh rule `60115`, level `9`, verified |
-| Kerberos | TGT and service-ticket activity | Planned |
-| Directory changes | Selected Group Policy or directory-object changes | Planned |
-| Endpoint activity | Marked PowerShell, scheduled task and service creation | Planned |
-| Process telemetry | Parent-child relationships, command lines and hashes | Planned |
+The exact account filter returned 18 live alerts. The five `4625` records exposed network logon type `3`, `Negotiate`, the bad-password status/substatus pair and the controlled PowerShell process. Event ID `4728` required the added principal to be queried in `memberName`, while `targetUserName` represented the group.
 
-## Evidence standard
+The account password was generated only in memory, never printed or committed, and the account finished disabled. The group was the unprivileged `GG-Employees`; no privileged-group test is claimed.
 
-Every completed scenario must record:
+## Detection engineering
 
-- A unique test marker
-- Exact timestamp and timezone
-- Host and test-account context
-- Local Windows or Sysmon evidence
-- Wazuh ingestion or independent rule-test evidence
-- Event IDs, rule IDs, levels and relevant decoded fields
-- MITRE ATT&CK mapping
-- Analyst conclusion and limitations
+- [`AD-LOCKOUT-001`](detections/AD-LOCKOUT-001.md) — five failed logons followed by a high-confidence lockout
+- [`AD-ACCOUNT-LIFECYCLE-001`](detections/AD-ACCOUNT-LIFECYCLE-001.md) — account and group changes with field-aware triage guidance
 
-Local evidence, synthetic rule testing, and live Wazuh alerts will always be identified separately.
+No custom Wazuh rules were deployed. Built-in rules already produced reliable, useful alerts; duplicating them would add maintenance without analytical value. Future custom logic is reserved for multi-event correlation, source enrichment or privileged-group prioritization.
+
+## Investigation and evidence
+
+- [`IR-001`](investigations/IR-001-controlled-account-lockout.md) — executive summary, timeline, evidence, interpretation, cleanup and limitations
+- [`WAZ-002`](evidence/WAZ-002-controlled-lockout-indexing.md) — exact live lockout mapping
+- [`WAZ-003`](evidence/WAZ-003-account-lifecycle-indexing.md) — exact live lifecycle mappings
+- [`WAZ-004`](evidence/WAZ-004-failed-logon-indexing.md) — five live failure alerts and expanded authentication fields
+- [Evidence index](evidence/README.md) — migration, domain, audit, Wazuh, Sysmon and scenario evidence
+
+Local Windows evidence, encrypted transport evidence and live Wazuh alerts are identified separately. Raw EVTX, packet captures, unrestricted JSON, exact private addresses, SIDs and credentials remain outside Git.
+
+## Configuration and reproduction
+
+- [Configuration and integration reference](docs/configuration-reference.md)
+- [Architecture and network boundaries](docs/architecture.md)
+- [Safe reproduction guide](docs/reproduction-guide.md)
+- [`Invoke-ControlledLockoutLab.ps1`](scripts/Invoke-ControlledLockoutLab.ps1) — bounded, domain-gated reproduction helper
+- [Troubleshooting record](docs/troubleshooting.md)
+- [Cleanup and shutdown procedure](docs/cleanup-and-shutdown.md)
+
+The Sysmon profile is reused by hash from the earlier project and attributed to Olaf Hartong's Sysmon Modular project and contributors rather than duplicated here.
 
 ## Safety boundaries
 
-- Systems and accounts owned by the project author only
-- Test identities and non-production passwords only
-- No credential dumping, malware, destructive actions or uncontrolled exploit code
-- No exposure of AD services to the public internet
-- Configuration backups before changes
-- Syntax validation before service restarts
-- Service-health checks after material changes
-- No credentials, private keys, personal identifiers or unsafe raw logs committed
+- Systems, VMs, accounts and networks owned by the project author only
+- Fictional identities and non-production credentials only
+- No credential dumping, malware, public AD exposure or destructive payloads
+- Configuration validation and recoverable snapshots before material changes
+- Reviewed screenshots and text-first sanitized evidence
 
-See [scope and safety](docs/scope-and-safety.md) for the full working boundary.
+See [scope and safety](docs/scope-and-safety.md) and [known limitations](docs/known-limitations.md).
 
-## Verified infrastructure state
-
-The Wazuh VM migration to the destination laptop was validated on 1 November 2026. The powered-off transferred disk received a SHA-256 baseline, a separate permanent clone was created, and the original transfer copy was retained as recovery media. The clone booted successfully; Wazuh agent and enrollment listeners were reachable, the dashboard redirected to its login page, and the API returned the expected unauthenticated `401` response.
-
-The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 4.5 GB RAM, localhost-only management forwarding, and a second adapter on the VM-only `AD-LAB` internal network. Manager, indexer, dashboard and Filebeat packages were verified at `4.14.7-1`; all core services were active. The root filesystem remains healthy with approximately 15 GB free, so guest expansion is deferred rather than claimed complete. See [migration validation](evidence/MIG-001-migration-validation.md).
-
-`AD-DC01` runs Windows Server 2025 Standard Evaluation (Desktop Experience), build `26100.33650`, from its dedicated 64 GB virtual disk. The isolated `AD-LAB` adapter uses a static RFC1918 address without a default gateway. The temporary NAT adapter is disabled at both the guest and VirtualBox link layers.
-
-The server is the first domain controller and DNS server for the fictional `bluevale.test` forest (`BLUEVALE`, Windows Server 2025 functional levels). DNS resolution, core directory services, SYSVOL, NetLogon, advertising and replication checks passed. A protected lab OU hierarchy and five unprivileged fictional security groups were created. No user password is stored in this repository. The VM uses 3 GB RAM and one vCPU because two independent two-vCPU boot tests reproduced an EFI `DXE_AP` stall under the host's Windows-hypervisor-backed VirtualBox path. A clean powered-off `ad-ds-baseline-2026-11-02` snapshot protects this milestone.
-
-The domain controller now runs the version-matched Wazuh `4.14.7` agent and Microsoft Sysmon `15.22`. Application, Security, System, PowerShell Operational and Sysmon Operational channels are configured for Wazuh collection. Local service state, event generation and bidirectional encrypted TCP `1514` transport were verified. A dashboard search for the unique controlled-scenario account returned 18 live alerts. A focused Event ID `4740` query returned one live alert decoded by `windows_eventchannel` and matched by built-in Wazuh rule `60115` at level `9`. Exact one-hit queries also mapped Event IDs `4720`, `4728`, `4767` and `4725` to built-in rules `60109`, `60141`, `60133` and `60111`. See [`WAZ-001`](evidence/WAZ-001-domain-controller-agent.md), [`SYS-001`](evidence/SYS-001-sysmon-telemetry.md), [`WAZ-002`](evidence/WAZ-002-controlled-lockout-indexing.md) and [`WAZ-003`](evidence/WAZ-003-account-lifecycle-indexing.md).
-
-## Roadmap
-
-1. [x] Verify destination resources and virtualization support.
-2. [x] Preserve, clone and validate the migrated Wazuh VM.
-3. [x] Create the VirtualBox `AD-LAB` internal network attachment on Wazuh.
-4. [x] Prepare the powered-off domain-controller VM hardware and isolated adapters.
-5. [x] Acquire and verify supported Windows evaluation media from Microsoft.
-6. [x] Finish updates, isolate temporary NAT and promote the verified `bluevale.test` domain-controller baseline.
-7. [ ] Add a separate Windows domain client if the resource test passes.
-8. [x] Configure auditing, Wazuh and selected Sysmon telemetry.
-9. [ ] Baseline normal domain activity and execute additional harmless marked scenarios; the first marked identity scenario is complete.
-10. [ ] Develop additional detections and investigations; lockout and companion lifecycle coverage are documented.
-11. [ ] Complete secret, evidence, syntax and publication review.
-
-## Repository structure
+## Repository map
 
 ```text
-docs/             Architecture, build notes, safety, evidence standards and troubleshooting
-detections/       Detection objectives, logic and analyst guidance
-rules/            Custom Wazuh rules and validation notes
-investigations/   Scenario reports and analyst conclusions
-evidence/         Sanitized evidence summaries and index
-scripts/          Harmless reproduction and validation helpers
+detections/       Detection objectives, verified rules and triage guidance
+docs/             Architecture, configuration, reproduction, safety and operations
+evidence/         Sanitized evidence summaries and classification
+investigations/   Incident-analysis report
+rules/            Documented custom-rule decision
+scripts/          Bounded reproduction helper
 screenshots/      Reviewed screenshots only
 ```
 
-## Relationship to previous work
+## Release validation
 
-This project will not repeat the existing Wazuh installation, endpoint enrollment, FIM, local failed-logon, PowerShell 4104, or baseline Sysmon work already documented in the first two projects. It will reuse that foundation and concentrate on Active Directory identity telemetry and incident-response analysis.
+The v1.0 release gate includes current-tree and full-history privacy scanning, PowerShell syntax validation, Markdown link checking, screenshot review, claim review, Git integrity checks and local/remote parity. Results are recorded in [release validation](docs/release-validation.md).
 
-## Publication status
-
-This repository remains private while the infrastructure and evidence are incomplete. A public release and version tag will be considered only after syntax checks, secret scanning, evidence review, link validation and claim verification.
+The prepared LinkedIn text is stored as a [draft](docs/linkedin-post-draft.md) and is not published automatically.

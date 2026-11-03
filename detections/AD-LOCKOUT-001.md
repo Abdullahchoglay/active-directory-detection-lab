@@ -2,7 +2,7 @@
 
 ## Status
 
-Validated end to end. The locally verified Event ID `4740` matched built-in Wazuh rule `60115` at level `9` through decoder `windows_eventchannel`.
+Validated end to end. Five live Event ID `4625` alerts under built-in rule `60122` preceded the locally and live-verified Event ID `4740` alert under rule `60115`.
 
 ## Objective
 
@@ -37,9 +37,24 @@ The current lab threshold is five failures in 15 minutes. A production rule shou
 - `win.eventdata.callerComputerName`
 - Wazuh rule ID, level, groups and MITRE fields
 
-The live lockout alert confirmed `win.system.eventID`, `win.system.computer`, `win.eventdata.targetUserName`, `win.eventdata.targetDomainName` and caller-computer context. Event ID `4740` does not carry a logon type or originating IP in this scenario; those fields must be recovered from the preceding authentication failures when attribution is required.
+The live lockout alert confirmed `win.system.eventID`, `win.system.computer`, `win.eventdata.targetUserName`, `win.eventdata.targetDomainName` and caller-computer context. The expanded failure alert confirmed network logon type `3`, the `Negotiate` authentication package, `Advapi` logon process, status `0xc000006d`, bad-password substatus `0xc000006a` and the Windows PowerShell process used by the controlled launcher. Event ID `4740` itself does not carry those fields, so analysts must correlate the preceding failures when attribution is required.
 
 ## Verified Wazuh behavior
+
+### Five failure alerts
+
+| Field | Value |
+|---|---|
+| Event ID | `4625` |
+| Result count | `5` |
+| Decoder | `windows_eventchannel` |
+| Rule ID | `60122` |
+| Level | `5` |
+| Description | `Logon Failure - Unknown user or bad password` |
+| Groups | `windows`, `windows_security`, `authentication_failed` |
+| Built-in MITRE mapping | `T1531` / Impact / Account Access Removal |
+
+### Lockout alert
 
 | Field | Value |
 |---|---|
@@ -54,7 +69,7 @@ The live lockout alert confirmed `win.system.eventID`, `win.system.computer`, `w
 
 ## Custom-rule decision
 
-No custom Event ID `4740` rule was deployed. The built-in level-9 alert already supplies an actionable lockout signal and relevant ATT&CK context. A custom correlation rule would be justified only if it adds the preceding failure count, source attribution or environment-specific exclusions without duplicating rule `60115`.
+No custom Event ID `4625` or `4740` rule was deployed. The built-in alerts already supply reliable component signals. A custom correlation rule would be justified only if it adds the preceding failure count, source attribution or environment-specific exclusions without duplicating rules `60122` and `60115`.
 
 ## Expected behavior
 
@@ -91,4 +106,5 @@ No custom Event ID `4740` rule was deployed. The built-in level-9 alert already 
 - [`AUD-001`](../evidence/AUD-001-windows-audit-baseline.md)
 - [`SYS-001`](../evidence/SYS-001-sysmon-telemetry.md)
 - [`WAZ-002`](../evidence/WAZ-002-controlled-lockout-indexing.md)
+- [`WAZ-004`](../evidence/WAZ-004-failed-logon-indexing.md)
 

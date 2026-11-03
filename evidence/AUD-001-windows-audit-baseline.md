@@ -56,7 +56,7 @@ The policy applies only to the fictional lab domain. No password-backed fictiona
 - Policy configuration and read-back: locally verified
 - Event-channel enablement and sizes: locally verified
 - Scenario-specific Security event IDs: not claimed here
-- Wazuh decoder and rule correlation: deferred to marked scenarios
+- Wazuh decoder and rule correlation: later verified in the marked `IR-001` scenario
 
-This item establishes that the required Windows audit sources are enabled. It does not claim that every enabled subcategory generated an event or alert during baseline configuration.
+This item establishes that the required Windows audit sources are enabled. It does not claim that every enabled subcategory generated an event during baseline configuration. Later live results are recorded in [`WAZ-002`](WAZ-002-controlled-lockout-indexing.md), [`WAZ-003`](WAZ-003-account-lifecycle-indexing.md) and [`WAZ-004`](WAZ-004-failed-logon-indexing.md).
 

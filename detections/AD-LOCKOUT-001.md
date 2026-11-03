@@ -2,7 +2,7 @@
 
 ## Status
 
-Telemetry prerequisites, local Windows evidence and Wazuh transport are verified. Dashboard decoding and built-in Wazuh rule coverage remain pending authenticated review.
+Telemetry prerequisites, local Windows evidence, Wazuh transport and scenario-specific live indexing are verified. An expanded account-management event confirmed representative Windows fields in Wazuh. Exact decoder and built-in rule metadata for Event ID `4740` remain pending focused review.
 
 ## Objective
 
@@ -37,7 +37,7 @@ The current lab threshold is five failures in 15 minutes. A production rule shou
 - `win.eventdata.callerComputerName`
 - Wazuh rule ID, level, groups and MITRE fields
 
-Field availability must be confirmed against the decoded dashboard event before a custom rule is written.
+The live scenario confirmed `win.system.eventID`, `win.system.computer`, `win.eventdata.targetUserName` and `win.eventdata.targetDomainName` on a representative account-management event. Lockout-specific source fields and Wazuh rule metadata must still be confirmed on Event ID `4740` before a custom rule is written.
 
 ## Expected behavior
 
@@ -72,4 +72,5 @@ Field availability must be confirmed against the decoded dashboard event before 
 - [`IR-001`](../investigations/IR-001-controlled-account-lockout.md)
 - [`AUD-001`](../evidence/AUD-001-windows-audit-baseline.md)
 - [`SYS-001`](../evidence/SYS-001-sysmon-telemetry.md)
+- [`WAZ-002`](../evidence/WAZ-002-controlled-lockout-indexing.md)
 

@@ -12,3 +12,4 @@ Raw EVTX files, packet captures, unrestricted JSON exports, credentials, machine
 - [`AUD-001`](AUD-001-windows-audit-baseline.md) — Windows Advanced Audit Policy, PowerShell logging and retention baseline
 - [`WAZ-001`](WAZ-001-domain-controller-agent.md) — domain-controller agent and isolated transport validation
 - [`SYS-001`](SYS-001-sysmon-telemetry.md) — Sysmon, Wazuh event-channel and telemetry-flow baseline
+- [`WAZ-002`](WAZ-002-controlled-lockout-indexing.md) — live Wazuh indexing correlation for the controlled lockout scenario

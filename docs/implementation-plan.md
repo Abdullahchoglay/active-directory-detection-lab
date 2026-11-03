@@ -11,7 +11,8 @@
 - [x] Verify the dashboard-advertised Wazuh version (`4.14.7`).
 - [x] Verify guest package consistency and filesystem health after authenticated guest access.
 - [x] Verify Windows agent enrollment and bidirectional event transport.
-- [ ] Verify a uniquely marked Windows event in the dashboard and record its decoder/rule fields.
+- [x] Verify a uniquely identified Windows scenario in the dashboard and record representative decoded Windows fields.
+- [ ] Record exact Wazuh decoder and rule fields for the scenario's Event ID `4740` lockout record.
 
 ## Phase 1 — Network design — completed for the current two-VM baseline
 
@@ -49,7 +50,8 @@
 - [x] Add reviewed Sysmon telemetry.
 - [x] Validate local event generation before writing custom rules.
 - [x] Verify bidirectional encrypted transport on the isolated link.
-- [ ] Correlate a unique scenario marker to a dashboard event and capture decoded fields.
+- [x] Correlate the unique scenario account to live dashboard events and capture representative decoded fields.
+- [ ] Capture exact Wazuh rule ID, level, groups and lockout-specific fields for Event ID `4740`.
 
 ## Phase 4 — Detection engineering
 

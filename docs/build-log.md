@@ -112,4 +112,12 @@ Dashboard-indexed event correlation is intentionally deferred to the first marke
 - Discovered that saved-state resume had left the guest clock approximately 5 hours 32 minutes behind the host.
 - Preserved the original guest timestamps, performed a controlled outbound-only Windows Time synchronization, and immediately disabled the guest NAT adapter and VirtualBox cable again.
 
-The scenario is documented as local Windows evidence plus verified Wazuh transport. Dashboard indexing and alert fields remain pending and are not claimed.
+The scenario was first documented as local Windows evidence plus verified Wazuh transport.
+
+## 2 November 2026 — Live Wazuh scenario correlation
+
+- Searched the live `wazuh-alerts-*` data view for the unique controlled-scenario account.
+- Correlated `18` indexed alerts to that identity.
+- Expanded a representative Security event and verified the fictional domain-controller host, target domain, target account and Windows Event ID `4725` cleanup action.
+- Excluded the exact private agent address, SID, unrestricted event payload and unsanitized dashboard screenshot from Git.
+- Recorded this as scenario-specific live indexing evidence, while leaving the exact Wazuh rule ID, level and groups for the local Event ID `4740` lockout record explicitly unverified.

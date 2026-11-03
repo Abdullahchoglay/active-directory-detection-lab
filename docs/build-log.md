@@ -121,3 +121,12 @@ The scenario was first documented as local Windows evidence plus verified Wazuh 
 - Expanded a representative Security event and verified the fictional domain-controller host, target domain, target account and Windows Event ID `4725` cleanup action.
 - Excluded the exact private agent address, SID, unrestricted event payload and unsanitized dashboard screenshot from Git.
 - Recorded this as scenario-specific live indexing evidence, while leaving the exact Wazuh rule ID, level and groups for the local Event ID `4740` lockout record explicitly unverified.
+
+## 3 November 2026 — Exact Wazuh lockout-rule validation
+
+- Applied an exact Discover query for the unique scenario account and Event ID `4740`; it returned one live alert.
+- Verified decoder `windows_eventchannel`, built-in rule `60115`, level `9` and description `User account locked out (multiple login errors)`.
+- Verified groups `windows`, `windows_security` and `authentication_failures`.
+- Verified MITRE IDs `T1110` and `T1531`, techniques Brute Force and Account Access Removal, and tactics Credential Access and Impact.
+- Recorded the dashboard alert time and original Windows `systemTime`, retaining the documented clock-skew caveat.
+- Declined to deploy a redundant custom lockout rule because built-in rule `60115` already provides an actionable high-confidence alert.

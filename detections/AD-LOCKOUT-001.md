@@ -2,7 +2,7 @@
 
 ## Status
 
-Telemetry prerequisites, local Windows evidence, Wazuh transport and scenario-specific live indexing are verified. An expanded account-management event confirmed representative Windows fields in Wazuh. Exact decoder and built-in rule metadata for Event ID `4740` remain pending focused review.
+Validated end to end. The locally verified Event ID `4740` matched built-in Wazuh rule `60115` at level `9` through decoder `windows_eventchannel`.
 
 ## Objective
 
@@ -37,7 +37,24 @@ The current lab threshold is five failures in 15 minutes. A production rule shou
 - `win.eventdata.callerComputerName`
 - Wazuh rule ID, level, groups and MITRE fields
 
-The live scenario confirmed `win.system.eventID`, `win.system.computer`, `win.eventdata.targetUserName` and `win.eventdata.targetDomainName` on a representative account-management event. Lockout-specific source fields and Wazuh rule metadata must still be confirmed on Event ID `4740` before a custom rule is written.
+The live lockout alert confirmed `win.system.eventID`, `win.system.computer`, `win.eventdata.targetUserName`, `win.eventdata.targetDomainName` and caller-computer context. Event ID `4740` does not carry a logon type or originating IP in this scenario; those fields must be recovered from the preceding authentication failures when attribution is required.
+
+## Verified Wazuh behavior
+
+| Field | Value |
+|---|---|
+| Decoder | `windows_eventchannel` |
+| Rule ID | `60115` |
+| Level | `9` |
+| Description | `User account locked out (multiple login errors)` |
+| Groups | `windows`, `windows_security`, `authentication_failures` |
+| MITRE IDs | `T1110`, `T1531` |
+| MITRE techniques | Brute Force, Account Access Removal |
+| MITRE tactics | Credential Access, Impact |
+
+## Custom-rule decision
+
+No custom Event ID `4740` rule was deployed. The built-in level-9 alert already supplies an actionable lockout signal and relevant ATT&CK context. A custom correlation rule would be justified only if it adds the preceding failure count, source attribution or environment-specific exclusions without duplicating rule `60115`.
 
 ## Expected behavior
 
@@ -66,6 +83,7 @@ The live scenario confirmed `win.system.eventID`, `win.system.computer`, `win.ev
 ## ATT&CK mapping
 
 - [T1110.001 — Brute Force: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
+- [T1531 — Account Access Removal](https://attack.mitre.org/techniques/T1531/)
 
 ## Evidence
 

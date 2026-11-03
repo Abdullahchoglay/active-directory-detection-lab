@@ -130,3 +130,13 @@ The scenario was first documented as local Windows evidence plus verified Wazuh 
 - Verified MITRE IDs `T1110` and `T1531`, techniques Brute Force and Account Access Removal, and tactics Credential Access and Impact.
 - Recorded the dashboard alert time and original Windows `systemTime`, retaining the documented clock-skew caveat.
 - Declined to deploy a redundant custom lockout rule because built-in rule `60115` already provides an actionable high-confidence alert.
+
+## 3 November 2026 — Account-lifecycle rule validation
+
+- Queried the same controlled identity for account creation (`4720`), unlock (`4767`) and disable (`4725`); each exact query returned one live alert.
+- Corrected the Event ID `4728` search to use `memberName` after confirming `targetUserName` represents the affected group.
+- Verified built-in rules `60109`, `60141`, `60133` and `60111`, with levels `8`, `5`, `5` and `8` respectively.
+- Recorded each alert's decoder, description, groups, MITRE IDs, tactics and dashboard timestamp.
+- Confirmed the group change involved only the unprivileged `GG-Employees` lab group; no privileged-group validation is claimed.
+- Excluded private addresses, SIDs, event-record identifiers and browser screenshots containing unrelated personal context.
+- Declined to add duplicate event-ID rules; documented future value in lifecycle correlation and privileged-group prioritization instead.

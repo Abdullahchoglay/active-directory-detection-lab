@@ -1,6 +1,6 @@
 # Active Directory Threat Detection and Incident Response Lab
 
-> **Status: First identity detection verified end to end.** The domain controller is monitored by Wazuh and Sysmon, and a controlled account-lockout investigation is supported by local Windows evidence plus a live Wazuh level-9 alert with reviewed decoder, rule and MITRE fields. This private repository remains a working draft while additional scenarios are completed.
+> **Status: First identity investigation verified end to end.** The domain controller is monitored by Wazuh and Sysmon. A controlled account-lockout investigation now includes local Windows evidence, a live level-9 lockout alert, and exact built-in Wazuh mappings for four companion account-lifecycle events. This private repository remains a working draft while additional scenarios are completed.
 
 ## Overview
 
@@ -41,8 +41,8 @@ The lab network will be isolated from the public internet. Active Directory serv
 |---|---|---|
 | Authentication | Successful and failed domain logons | Planned |
 | Authentication abuse | Bounded failures against a fictional test account | Local sequence and live Wazuh indexing verified |
-| Account lifecycle | Create, disable, enable and delete test users | Planned |
-| Access control | Add and remove a test user from a privileged group | Planned |
+| Account lifecycle | Create, disable, enable and delete test users | Create, unlock and disable live alerts verified; enable and delete remain planned |
+| Access control | Add and remove a test user from a privileged group | Unprivileged group addition verified; privileged-group scenario remains planned |
 | Lockout | Trigger and investigate a test-account lockout | Live Wazuh rule `60115`, level `9`, verified |
 | Kerberos | TGT and service-ticket activity | Planned |
 | Directory changes | Selected Group Policy or directory-object changes | Planned |
@@ -87,7 +87,7 @@ The permanent clone uses Wazuh `4.14.7`, a 64 GB dynamic disk, 4.5 GB RAM, local
 
 The server is the first domain controller and DNS server for the fictional `bluevale.test` forest (`BLUEVALE`, Windows Server 2025 functional levels). DNS resolution, core directory services, SYSVOL, NetLogon, advertising and replication checks passed. A protected lab OU hierarchy and five unprivileged fictional security groups were created. No user password is stored in this repository. The VM uses 3 GB RAM and one vCPU because two independent two-vCPU boot tests reproduced an EFI `DXE_AP` stall under the host's Windows-hypervisor-backed VirtualBox path. A clean powered-off `ad-ds-baseline-2026-11-02` snapshot protects this milestone.
 
-The domain controller now runs the version-matched Wazuh `4.14.7` agent and Microsoft Sysmon `15.22`. Application, Security, System, PowerShell Operational and Sysmon Operational channels are configured for Wazuh collection. Local service state, event generation and bidirectional encrypted TCP `1514` transport were verified. A dashboard search for the unique controlled-scenario account returned 18 live alerts. A focused Event ID `4740` query returned one live alert decoded by `windows_eventchannel` and matched by built-in Wazuh rule `60115` at level `9`. See [`WAZ-001`](evidence/WAZ-001-domain-controller-agent.md), [`SYS-001`](evidence/SYS-001-sysmon-telemetry.md) and [`WAZ-002`](evidence/WAZ-002-controlled-lockout-indexing.md).
+The domain controller now runs the version-matched Wazuh `4.14.7` agent and Microsoft Sysmon `15.22`. Application, Security, System, PowerShell Operational and Sysmon Operational channels are configured for Wazuh collection. Local service state, event generation and bidirectional encrypted TCP `1514` transport were verified. A dashboard search for the unique controlled-scenario account returned 18 live alerts. A focused Event ID `4740` query returned one live alert decoded by `windows_eventchannel` and matched by built-in Wazuh rule `60115` at level `9`. Exact one-hit queries also mapped Event IDs `4720`, `4728`, `4767` and `4725` to built-in rules `60109`, `60141`, `60133` and `60111`. See [`WAZ-001`](evidence/WAZ-001-domain-controller-agent.md), [`SYS-001`](evidence/SYS-001-sysmon-telemetry.md), [`WAZ-002`](evidence/WAZ-002-controlled-lockout-indexing.md) and [`WAZ-003`](evidence/WAZ-003-account-lifecycle-indexing.md).
 
 ## Roadmap
 
@@ -99,8 +99,8 @@ The domain controller now runs the version-matched Wazuh `4.14.7` agent and Micr
 6. [x] Finish updates, isolate temporary NAT and promote the verified `bluevale.test` domain-controller baseline.
 7. [ ] Add a separate Windows domain client if the resource test passes.
 8. [x] Configure auditing, Wazuh and selected Sysmon telemetry.
-9. [ ] Baseline normal domain activity and execute harmless marked scenarios.
-10. [ ] Develop detections and produce investigation reports.
+9. [ ] Baseline normal domain activity and execute additional harmless marked scenarios; the first marked identity scenario is complete.
+10. [ ] Develop additional detections and investigations; lockout and companion lifecycle coverage are documented.
 11. [ ] Complete secret, evidence, syntax and publication review.
 
 ## Repository structure

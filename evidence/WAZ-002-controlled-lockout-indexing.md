@@ -68,4 +68,4 @@ The initial live result table displayed the agent's exact private address, and t
 
 ## Analyst conclusion
 
-The controlled account lifecycle is visible end to end from Windows auditing through a live level-9 Wazuh lockout alert. Built-in rule `60115` provides useful coverage without a redundant custom rule. Future correlation work can focus on enriching the alert with the preceding failure sequence and source attribution.
+The controlled account lifecycle is visible end to end from Windows auditing through a live level-9 Wazuh lockout alert. Built-in rule `60115` provides useful coverage without a redundant custom rule. Companion account-management rule mappings are recorded separately in [`WAZ-003`](WAZ-003-account-lifecycle-indexing.md). Future correlation work can focus on enriching the alert with the preceding failure sequence and source attribution.

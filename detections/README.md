@@ -18,3 +18,4 @@ Planned status is not evidence. Detection documents should be added only as tele
 ## Current detection objectives
 
 - [`AD-LOCKOUT-001`](AD-LOCKOUT-001.md) — repeated failures followed by an account lockout
+- [`AD-ACCOUNT-LIFECYCLE-001`](AD-ACCOUNT-LIFECYCLE-001.md) — account creation, group membership, unlock and disable monitoring

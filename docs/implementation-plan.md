@@ -13,6 +13,7 @@
 - [x] Verify Windows agent enrollment and bidirectional event transport.
 - [x] Verify a uniquely identified Windows scenario in the dashboard and record representative decoded Windows fields.
 - [x] Record exact Wazuh decoder and rule fields for the scenario's Event ID `4740` lockout record.
+- [x] Record exact built-in Wazuh mappings for the scenario's Event IDs `4720`, `4728`, `4767` and `4725`.
 
 ## Phase 1 — Network design — completed for the current two-VM baseline
 
@@ -37,7 +38,7 @@
 - [x] Configure static addressing, local DNS, AD DS and fictional forest `bluevale.test`.
 - [x] Disable temporary NAT before promotion.
 - [x] Create the protected lab OU hierarchy and fictional security groups.
-- [ ] Create password-backed fictional test users only when required for controlled scenarios.
+- [x] Create and safely retire the first password-backed fictional identity only within a bounded controlled scenario.
 - [x] Establish a documented account-lockout policy.
 - [x] Capture clean powered-off snapshot `ad-ds-baseline-2026-11-02`.
 
@@ -52,10 +53,12 @@
 - [x] Verify bidirectional encrypted transport on the isolated link.
 - [x] Correlate the unique scenario account to live dashboard events and capture representative decoded fields.
 - [x] Capture exact Wazuh rule ID, level, groups and lockout-specific fields for Event ID `4740`.
+- [x] Capture exact rule ID, level, groups and ATT&CK fields for account creation, group membership, unlock and disable events.
 
 ## Phase 4 — Detection engineering
 
-- Baseline built-in Wazuh coverage.
+- [x] Baseline built-in Wazuh coverage for the first lockout and account-lifecycle sequence.
+- [x] Document why redundant custom rules were not deployed for the verified built-in alerts.
 - Use a reserved project-specific custom-rule range after checking for collisions.
 - Validate XML before deployment.
 - Test representative events with `wazuh-logtest`.

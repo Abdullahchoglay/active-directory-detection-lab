@@ -78,7 +78,7 @@ The bounded `IR-001` scenario:
 ## Phase 6 — Publication review — release gate
 
 - [x] Validate the committed PowerShell helper; custom XML validation is not applicable.
-- [ ] Sanitize and rescan the complete Git history.
+- [x] Sanitize and rescan the complete Git history.
 - [x] Review every screenshot.
 - [x] Check Markdown links and repository structure.
 - [x] Remove draft wording and unsupported claims.

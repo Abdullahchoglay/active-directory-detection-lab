@@ -147,3 +147,11 @@ The scenario was first documented as local Windows evidence plus verified Wazuh 
 - Verified decoder `windows_eventchannel`, built-in rule `60122`, level `5`, description `Logon Failure - Unknown user or bad password` and authentication-failure rule groups.
 - Expanded one alert and verified network logon type `3`, `Negotiate`, `Advapi`, the general logon-failure status, incorrect-password substatus and the controlled Windows PowerShell process.
 - Preserved the distinction between Wazuh's observed `T1531` metadata and the analyst's sequence-level `T1110.001` password-guessing interpretation.
+
+## 3 November 2026 — Release history sanitation
+
+- Created and verified a private, complete recovery bundle outside the repository before rewriting history.
+- Replaced an exact isolated-lab address in earlier revisions with a non-sensitive description.
+- Replaced a personal author email in the complete `main` history with the repository owner's GitHub noreply address.
+- Confirmed that the final project tree was byte-for-byte unchanged by the rewrite.
+- Rescanned every reachable revision for both removed values and found no remaining match.

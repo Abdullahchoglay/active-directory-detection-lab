@@ -50,6 +50,10 @@ One expanded alert verified:
 
 The exact private agent address, process identifier, machine identifiers and unrestricted message were excluded.
 
+## Sanitized screenshot
+
+[`wazuh-failed-logons-verified.png`](../screenshots/wazuh-failed-logons-verified.png) shows all five indexed alerts in a full-screen, column-restricted Discover view. It includes the timestamps, built-in rule, tactic, decoder, MITRE ID and level without exposing a private address value, SID, credential or unrestricted payload.
+
 ## Interpretation
 
 The built-in rule classifies each failure independently. The controlled sequence is analytically consistent with [T1110.001 Password Guessing](https://attack.mitre.org/techniques/T1110/001/), but Wazuh rule `60122` itself supplied `T1531`. The detection document keeps those two facts separate instead of replacing observed metadata with an analyst-selected mapping.

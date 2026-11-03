@@ -83,4 +83,4 @@ The bounded `IR-001` scenario:
 - [x] Check Markdown links and repository structure.
 - [x] Remove draft wording and unsupported claims.
 - [x] Confirm final local and remote branches match after publication.
-- [x] Create the signed-off `v1.0.0` tag and GitHub release after final evidence review.
+- [ ] Recreate the signed-off `v1.0.0` tag on the final commit and publish the GitHub release when explicitly authorized.

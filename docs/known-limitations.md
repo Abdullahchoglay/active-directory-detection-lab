@@ -7,6 +7,7 @@
 - **Kerberos and endpoint scenarios:** no standalone Kerberos, scheduled-task, service-creation or additional PowerShell investigation is claimed in this repository. Earlier endpoint work remains in the first two portfolio projects.
 - **Built-in rules:** no custom Wazuh rules were deployed because the reviewed built-in rules already produced useful alerts. Multi-event correlation and environment-specific tuning remain future enhancements.
 - **Clock quality:** saved-state resume caused clock drift during the first scenario. Original Windows timestamps were preserved, time was corrected, and the limitation is documented rather than hidden.
+- **Post-validation agent status:** during final screenshot capture, the endpoint overview reported zero active and two disconnected agents while the domain-controller VM remained in a live-snapshot operation. The portfolio relies on the already verified live alert sequence and does not claim that the agent was active at the later capture time.
 - **Evaluation software:** Windows Server is an evaluation edition and this is not a production architecture.
 - **Evidence sanitization:** raw packet captures, EVTX, unrestricted Wazuh JSON, exact internal addresses, SIDs and credentials remain outside Git.
 

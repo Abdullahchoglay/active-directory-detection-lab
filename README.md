@@ -63,6 +63,14 @@ No custom Wazuh rules were deployed. Built-in rules already produced reliable, u
 
 Local Windows evidence, encrypted transport evidence and live Wazuh alerts are identified separately. Raw EVTX, packet captures, unrestricted JSON, exact private addresses, SIDs and credentials remain outside Git.
 
+### Sanitized Wazuh evidence
+
+| Five failed logons | Account lockout | Account lifecycle |
+|---|---|---|
+| ![Five failed-logon alerts in Wazuh Discover](screenshots/wazuh-failed-logons-verified.png) | ![Level-9 account-lockout alert in Wazuh Discover](screenshots/wazuh-account-lockout-alert.png) | ![Four account-lifecycle alerts in Wazuh Discover](screenshots/wazuh-account-lifecycle-alerts.png) |
+
+These full-screen, column-restricted captures exclude browser chrome, private address values, SIDs, credentials and unrestricted event payloads.
+
 ## Configuration and reproduction
 
 - [Configuration and integration reference](docs/configuration-reference.md)

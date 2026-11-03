@@ -155,3 +155,11 @@ The scenario was first documented as local Windows evidence plus verified Wazuh 
 - Replaced a personal author email in the complete `main` history with the repository owner's GitHub noreply address.
 - Confirmed that the final project tree was byte-for-byte unchanged by the rewrite.
 - Rescanned every reachable revision for both removed values and found no remaining match.
+
+## 3 November 2026 — Sanitized dashboard screenshots
+
+- Captured full-screen Discover views for the five failed logons, the level-9 account lockout and the four account-lifecycle alerts.
+- Restricted the captures to detection-relevant columns and excluded browser chrome, address values, SIDs and unrestricted payloads.
+- Removed the lifecycle description column because the built-in Event ID `4728` description embedded the full member SID.
+- Retried the endpoint overview after an API health-check error; it loaded with `Active (0)` and `Disconnected (2)`.
+- Did not create or label an active-agent screenshot because the live page did not support that claim at capture time.

@@ -67,7 +67,7 @@ The dashboard times reflect later indexing after the saved-state clock issue doc
 
 ## Sanitization decision
 
-No dashboard screenshot was committed. The expanded data contained a private agent address, SIDs and event-record identifiers, while browser chrome exposed unrelated personal context. This text record retains the exact detection-relevant fields without publishing those identifiers.
+The expanded data contained a private agent address, SIDs and event-record identifiers, while the Event ID `4728` description embedded the full member SID. Those views were rejected. The committed [`wazuh-account-lifecycle-alerts.png`](../screenshots/wazuh-account-lifecycle-alerts.png) uses full-screen mode and omits the description column; it retains only timestamps, rule IDs, tactics, MITRE IDs, levels and Windows event IDs.
 
 ## Analyst conclusion
 

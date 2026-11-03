@@ -64,7 +64,7 @@ The 18-result filter proves that events tied to the unique scenario identity rea
 
 ## Sanitization decision
 
-The initial live result table displayed the agent's exact private address, and the expanded payload included a machine SID and event-record identifier. A later column-only dashboard view removed those fields, but its browser chrome contained unrelated personal tabs and bookmarks. Those captures were not committed. This text-first record preserves the security-relevant result without publishing unnecessary identifiers or personal context.
+The initial live result table displayed the agent's exact private address, and the expanded payload included a machine SID and event-record identifier. Those captures were rejected. A later full-screen, column-restricted view retained only the timestamp, rule ID, tactics, MITRE IDs, level and description. The sanitized result is committed as [`wazuh-account-lockout-alert.png`](../screenshots/wazuh-account-lockout-alert.png).
 
 ## Analyst conclusion
 

@@ -79,6 +79,7 @@ These full-screen, column-restricted captures exclude browser chrome, private ad
 - [`Invoke-ControlledLockoutLab.ps1`](scripts/Invoke-ControlledLockoutLab.ps1) — bounded, domain-gated reproduction helper
 - [Troubleshooting record](docs/troubleshooting.md)
 - [Cleanup and shutdown procedure](docs/cleanup-and-shutdown.md)
+- [Project completion report](docs/project-completion-report.md)
 
 The Sysmon profile is reused by hash from the earlier project and attributed to Olaf Hartong's Sysmon Modular project and contributors rather than duplicated here.
 
@@ -108,4 +109,4 @@ screenshots/      Reviewed screenshots only
 
 The v1.0 release gate includes current-tree and full-history privacy scanning, PowerShell syntax validation, Markdown link checking, screenshot review, claim review, Git integrity checks and local/remote parity. Results are recorded in [release validation](docs/release-validation.md).
 
-The prepared LinkedIn text is stored as a [draft](docs/linkedin-post-draft.md) and is not published automatically.
+The [publication checklist](docs/publication-checklist.md) contains the prepared repository metadata and the only remaining owner-authorized public actions. The prepared LinkedIn text is stored as a [draft](docs/linkedin-post-draft.md) and is not published automatically.

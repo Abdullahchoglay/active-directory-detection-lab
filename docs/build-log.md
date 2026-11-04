@@ -163,3 +163,38 @@ The scenario was first documented as local Windows evidence plus verified Wazuh 
 - Removed the lifecycle description column because the built-in Event ID `4728` description embedded the full member SID.
 - Retried the endpoint overview after an API health-check error; it loaded with `Active (0)` and `Disconnected (2)`.
 - Did not create or label an active-agent screenshot because the live page did not support that claim at capture time.
+
+## 4 November 2026 — Post-validation snapshot recovery
+
+- Attempted a live release snapshot of the running domain controller only after the evidence scenario was complete.
+- The memory save progressed extremely slowly while the guest continued executing and did not converge after several hours.
+- Shut down the Wazuh VM through its ACPI interface to reduce host memory pressure; it reached the VirtualBox `poweroff` state without a forced stop.
+- Used VirtualBox's reversible `controlvm pause` operation to stop the guest workload from continually dirtying memory.
+- VirtualBox completed the memory-save pass but rejected the live snapshot with `VERR_VM_UNEXPECTED_UNSTABLE_STATE`, removed the incomplete saved-state file and returned the domain controller to `running`.
+- Confirmed the attempted snapshot was not registered and the existing powered-off `ad-ds-baseline-2026-11-02` snapshot remained the current known-good recovery point.
+- During the initial snapshot-recovery step, no reset, hard power-off, snapshot deletion or disk discard was used.
+
+The failed post-validation snapshot is not claimed as a backup. The intact baseline snapshot and documented evidence remain the v1.0 recovery and validation references.
+
+The failed operation subsequently left a VirtualBox state-machine mismatch: the public state reported `running` while the VM core remained `SUSPENDED_EXT_LS`. Normal ACPI shutdown, Guest Additions shutdown, pause, resume, save-state, media eject and VirtualBox power-off all failed. The exact frozen `AD-DC01` VM process was therefore terminated only after its PID and window title were verified. The known-good baseline snapshot and virtual disks were not deleted or reverted.
+
+Recovery verification then completed as follows:
+
+- Ejected the temporary time-synchronization ISO while the VM was stopped and reconfirmed the temporary NAT cable remained disconnected.
+- Cold-booted the current domain-controller disk with Wazuh powered off.
+- Observed Windows pass through boot, `Applying computer settings` and the normal `BLUEVALE\Administrator` logon screen, confirming the current disk remained bootable.
+- Allowed the guest to become idle at logon, then completed a targeted VirtualBox power-off because domain policy did not expose an unauthenticated shutdown control and ACPI remained ignored.
+- Confirmed both `AD-DC01` and `Wazuh-Primary` ended in VirtualBox `poweroff` state.
+- Confirmed current snapshots remained `ad-ds-baseline-2026-11-02` and `migration-verified-2026-11-01` respectively.
+
+The recovery screenshots were used only for private operational verification and were not added to the portfolio because they provide no detection evidence.
+
+## 4 November 2026 — Final Wazuh availability check
+
+- Cold-booted `Wazuh-Primary` with the domain controller running after the snapshot attempt ended.
+- Confirmed the guest OS and SSH forwarding became reachable.
+- Monitored the dashboard and API for 24 minutes; the dashboard continued returning `503` and the API did not become ready.
+- Did not capture or claim a healthy-agent screenshot because the live system did not support that claim.
+- Shut down Wazuh through ACPI; VirtualBox reached `poweroff` normally.
+
+This post-validation availability issue does not replace or invalidate the earlier verified live alert evidence. It is retained as an operational limitation rather than concealed.

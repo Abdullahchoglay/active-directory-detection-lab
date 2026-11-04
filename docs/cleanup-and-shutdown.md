@@ -30,3 +30,17 @@ Starting Wazuh before the domain controller and stopping the domain controller b
 
 After an unexpected stop, verify filesystem/service health, Windows time, DNS, KDC, NetLogon, NTDS, `WazuhSvc` and `Sysmon64` before generating new evidence. Record any recovery action in the build or troubleshooting log.
 
+## Final private-release state — 4 November 2026
+
+| Item | Verified state |
+|---|---|
+| `AD-DC01` | VirtualBox `poweroff`; current disk cold-booted to the normal domain logon screen after snapshot recovery |
+| DC recovery point | `ad-ds-baseline-2026-11-02` retained |
+| DC isolated adapter | `AD-LAB` connected |
+| DC temporary NAT | Cable disconnected |
+| DC temporary ISO | Ejected; virtual optical drive empty |
+| `Wazuh-Primary` | ACPI shutdown completed; VirtualBox `poweroff` |
+| Wazuh recovery point | `migration-verified-2026-11-01` retained |
+
+Before the next scenario, boot Wazuh first and investigate the documented post-validation `503` condition before starting the domain controller. Do not generate new evidence until manager, indexer, dashboard and API health are revalidated.
+

@@ -10,6 +10,7 @@
 - Detection engineering documents for lockout and account lifecycle monitoring
 - End-to-end incident investigation with ATT&CK interpretation and cleanup result
 - Reviewed reproduction helper, limitations, shutdown procedure and publication evidence
+- Private completion report and publication-day checklist
 
 ### Security and privacy
 

@@ -14,6 +14,7 @@ Validation date: 4 November 2026
 | Claim review | Pass | Unverified client, privileged-group, enable/delete, Kerberos and endpoint scenarios are stated as limitations rather than results |
 | Git integrity | Pass | `git fsck --full` and `git diff --check` completed without repository errors; the final tree matched the pre-rewrite tree exactly |
 | Local/remote parity | Pass | Sanitized `main` was published with a guarded force-push and the local and remote release-candidate commit IDs matched |
+| Public publication verification | Pass | Unauthenticated checks returned HTTP `200` for the repository, `v1.0.0` release, raw README and all six published screenshots |
 
 ## Screenshot decisions
 

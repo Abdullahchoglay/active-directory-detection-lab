@@ -4,9 +4,9 @@ Completion date: 4 November 2026
 
 ## Outcome
 
-The private v1.0 project is complete and ready for publication. It demonstrates an isolated two-VM Active Directory detection lab, live Windows and Sysmon telemetry in Wazuh, a bounded fictional-account scenario, two detection objectives, an end-to-end investigation and six reviewed screenshots.
+The public v1.0 project is complete. It demonstrates an isolated two-VM Active Directory detection lab, live Windows and Sysmon telemetry in Wazuh, a bounded fictional-account scenario, two detection objectives, an end-to-end investigation and six reviewed screenshots.
 
-Publication itself is intentionally not included in this completion state. Repository visibility, public release creation and the prepared LinkedIn post remain untouched until the owner explicitly publishes them.
+The repository, GitHub release, LinkedIn announcement and LinkedIn Projects entry were published on 4 November 2026 after the owner authorized the launch.
 
 ## Completed deliverables
 
@@ -22,7 +22,7 @@ Publication itself is intentionally not included in this completion state. Repos
 - Architecture, configuration, safety, troubleshooting, limitations and cleanup documentation
 - Current-tree and complete-history privacy review
 - PowerShell syntax, Markdown link, screenshot, Git integrity and local/remote parity checks
-- Prepared but unpublished LinkedIn draft
+- Published GitHub release and LinkedIn portfolio announcement
 
 ## Evidence summary
 
@@ -41,15 +41,16 @@ These constraints are fully documented in [known limitations](known-limitations.
 
 ## Release state
 
-- Private repository content: complete
-- Local and private remote `main`: synchronized at the last release audit
-- Version target: `v1.0.0`
-- GitHub description and topics: prepared in the [publication checklist](publication-checklist.md)
-- GitHub release: not published
-- LinkedIn post: drafted, not published
+- Public repository content: complete
+- Local and public remote `main`: synchronized at the release audit
+- Released version: [`v1.0.0`](https://github.com/Abdullahchoglay/active-directory-detection-lab/releases/tag/v1.0.0)
+- GitHub description and eight topics: published and recorded in the [publication record](publication-record.md)
+- GitHub release: published
+- LinkedIn post: [published](https://www.linkedin.com/feed/update/urn:li:activity:7523706325982142464/)
+- LinkedIn Projects entry: published with the repository link and five project skills
 - Final lab state: both VMs powered off; temporary ISO ejected; DC NAT cable disconnected
 
-See [release validation](release-validation.md) for the technical gates and [publication checklist](publication-checklist.md) for the only remaining owner-authorized public actions.
+See [release validation](release-validation.md) for the technical gates and the [publication record](publication-record.md) for the completed public launch checks.
 
 ## Deliverable map
 
@@ -67,6 +68,6 @@ See [release validation](release-validation.md) for the technical gates and [pub
 | Scope, safety and limitations | [Scope and safety](scope-and-safety.md), [known limitations](known-limitations.md) |
 | Attribution and versions | [Configuration reference](configuration-reference.md) |
 | Cleanup and recovery | [Cleanup and shutdown](cleanup-and-shutdown.md) |
-| Private release verification | [Release validation](release-validation.md) |
-| Prepared public metadata | [Publication checklist](publication-checklist.md) |
-| Prepared social announcement | [LinkedIn draft](linkedin-post-draft.md) |
+| Release verification | [Release validation](release-validation.md) |
+| Public release metadata | [Publication record](publication-record.md) |
+| Published social announcement | [LinkedIn announcement](linkedin-post.md) |

@@ -81,6 +81,6 @@ The bounded `IR-001` scenario:
 - [x] Sanitize and rescan the complete Git history.
 - [x] Review every screenshot.
 - [x] Check Markdown links and repository structure.
-- [x] Remove draft wording and unsupported claims.
+- [x] Remove placeholder wording and unsupported claims.
 - [x] Confirm final local and remote branches match after publication.
 - [ ] Recreate the signed-off `v1.0.0` tag on the final commit and publish the GitHub release when explicitly authorized.

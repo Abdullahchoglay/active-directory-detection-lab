@@ -109,4 +109,4 @@ screenshots/      Reviewed screenshots only
 
 The v1.0 release gate includes current-tree and full-history privacy scanning, PowerShell syntax validation, Markdown link checking, screenshot review, claim review, Git integrity checks and local/remote parity. Results are recorded in [release validation](docs/release-validation.md).
 
-The [publication checklist](docs/publication-checklist.md) contains the prepared repository metadata and the only remaining owner-authorized public actions. The prepared LinkedIn text is stored as a [draft](docs/linkedin-post-draft.md) and is not published automatically.
+The [publication record](docs/publication-record.md) documents the completed public-release checks, repository metadata and LinkedIn launch. The final announcement text and live post link are preserved in the [LinkedIn announcement record](docs/linkedin-post.md).
